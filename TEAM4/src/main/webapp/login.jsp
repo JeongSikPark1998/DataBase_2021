@@ -18,7 +18,7 @@
 			<ul>
 				<li>
 					<label for="id">ID: </label>
-					<input type="text" id="id" name="id">
+					<input type="text" id="id" name="id" size="10">
 				</li>
 				<li>
 					<label for="pw">PASSWORD:  </label>

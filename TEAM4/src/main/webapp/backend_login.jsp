@@ -59,9 +59,20 @@
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	rsmd = rs.getMetaData();
+	RequestDispatcher dispatcher;
 	if (rsmd.getColumnCount() >= 1) {
 		//login 성공
 		System.out.println("success");
+		if(loginType.equals("STUDENT")){
+			dispatcher = request.getRequestDispatcher("main_student.jsp");
+		}
+		else if(loginType.equals("PROFESSOR")){
+			dispatcher = request.getRequestDispatcher("main_professor.jsp");
+		}
+		else{
+			dispatcher = request.getRequestDispatcher("main_administrator.jsp");
+		}
+		dispatcher.forward(request, response);
 	}
 	else {
 		//login 실패

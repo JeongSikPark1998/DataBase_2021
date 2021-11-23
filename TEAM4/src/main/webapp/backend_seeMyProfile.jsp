@@ -50,14 +50,14 @@
 	cnt = rsmd.getColumnCount();
 	while(rs.next()){
 		out.println(rs.getString(1)); //id
-		out.println(rs.getDouble(2)); //lname
+		out.println(rs.getString(2)); //lname
 		out.println(rs.getString(3)); //fname
-		out.println(rs.getDouble(4)); //birth
-		out.println(rs.getString(5)); //age
-		out.println(rs.getDouble(6)); //phone
+		out.println(rs.getString(4)); //birth
+		out.println(rs.getInt(5)); //age
+		out.println(rs.getString(6)); //phone
 		out.println(rs.getString(7)); //mail
-		out.println(rs.getDouble(8)); //sex
-		out.println(rs.getDouble(9)); //fco
+		out.println(rs.getString(8)); //sex
+		out.println(rs.getString(9)); //fco
 	}
 	rs.close();
 	pstmt.close();

@@ -4,9 +4,16 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>Team4: Consultation</title>
 </head>
 <body>
-	<h1>Student my page</h1>
+	<h2>MY PAGE</h2><br><br>
+		<!-- manage upcoming schedule and my account -->
+	<nav>
+	<ul>
+		<li><a href="upcoming_schedule_student.jsp">UPCOMING SCHEDULE</a></li>
+		<li><a href="account_student.jsp">ACCOUNT</a></li>
+	</ul>
+	</nav>
 </body>
 </html>

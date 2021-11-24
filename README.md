@@ -21,6 +21,7 @@ consultation booking service in university
 박정식
 
 최민중
+
 ------------
 ## 3. DEMO
 ![CONSULTATION_사용예시]
@@ -35,18 +36,7 @@ consultation booking service in university
 
 ------------
 ## 6. LIBRARY
-1. python 3.6.9 
-2. pip (9.0.1)
-3. beautifulsoup4 (4.9.3)
-4. elasticsearch (7.13.0)
-5. Flask (1.1.2)
-6. konlpy (0.5.2)
-7. nltk (3.6.2)
-8. sklearn (0.0)
-9. urllib3 (1.26.5)
-10. numpy (1.19.5)
-11. requests (2.25.1)
-12. scikit-learn(0.24.2)
+1. 
 
 ------------
 ## 7. INSTALL & RUN
@@ -82,6 +72,7 @@ insert가 두 번 일어나야함
 - Consult_info 수정
 - Pw 업데이트
 - 자기 정보 열람
+ 
 ------------
 ## 9. 교수
 1. 자기 개설 상담 현황
@@ -95,6 +86,7 @@ insert가 두 번 일어나야함
 - Conuslt_type, Space, max, time, date
 		
 -> 첫 번째 화면
+
 ------------
 ## 10. 관리자
 3. 관리자 페이지

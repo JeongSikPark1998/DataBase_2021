@@ -41,6 +41,7 @@
 	
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();	
+	conn.commit();
 	rs.close();
 	pstmt.close();
 %>
@@ -50,6 +51,7 @@
 	sql = "DELETE FROM FACULTY WHERE FCode = '"+DFCo+"' AND FUco ='"+uco+"'";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
+	conn.commit();
 	rs.close();
 	pstmt.close();
 %>
@@ -61,7 +63,8 @@
 	sql = "INSERT INTO COURSE VALUES('"+ICName+"','"+ICCode+"','"+ICFCo+"','"+uco+"');";
 			
 	pstmt = conn.prepareStatement(sql);
-	rs = pstmt.executeQuery();	
+	rs = pstmt.executeQuery();
+	conn.commit();
 	rs.close();
 	pstmt.close();
 %>
@@ -73,6 +76,7 @@
 			
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
+	conn.commit();
 	rs.close();
 	pstmt.close();
 %>

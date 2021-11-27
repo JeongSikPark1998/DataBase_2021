@@ -9,10 +9,7 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	String loginType = request.getParameter("loginType");
-    String id = request.getParameter("id");
-    String pwUpdate = request.getParameter("pwUpdate"); //이것만 새로 입력 받아야함.
-    String uco = request.getParameter("uco");
+	String uco = request.getParameter("uco"); //입력받아야함!
 %>
 
 <%
@@ -35,28 +32,24 @@
 </head>
 <body>
 
-<%
-	if (loginType.equals("STUDENT")) {
-		sql = "UPDATE STUDENT SET"
-				+" SPW = '"+pwUpdate+"' WHERE"
-				+" SId= '"+id+"'"
-				+" AND SUco = '"+uco+"'";
-	}
-	else if (loginType.equals("PROFESSOR")) {
-		sql = "UPDATE PROFESSOR SET"
-				+" SPW = '"+pwUpdate+"' WHERE"
-				+" PId= '"+id+"'"
-				+" AND SUco = '"+uco+"'";
-	}
-	else {
-		sql = "";
-	}
+<%//해당 학교 개설 학과 불러오기
+	sql = "SELECT * FROM FACULTY WHERE FUco = '"+uco+"'";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
-	conn.commit();
 	rs.close();
 	pstmt.close();
 %>
 
+<%//해당 학교 개설 강좌 불러오기
+	sql = "SELECT * FROM COURSE WHERE CUco = '"+uco+"'";
+	pstmt = conn.prepareStatement(sql);
+	rs = pstmt.executeQuery();	
+	rs.close();
+	pstmt.close();
+%>
+
+여기에서 이제 추가 삭제 만들면 될듯!!
+
 </body>
 </html>
+

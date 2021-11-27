@@ -8,11 +8,15 @@
 <title>Insert title here</title>
 
 <%
+	//현재 화면은 자신의 상담 신청 현황에서 Consult Info를 수정화면으로 넘어가는 상황입니다.
+	//이전 페이지에서 가져와야 할 정보는 학생 자신의 sid, pid, CNum(CICode), Uco 입니다.
 	request.setCharacterEncoding("UTF-8");
 	String loginType = request.getParameter("loginType");
-    String id = request.getParameter("id");
-    String pwUpdate = request.getParameter("pwUpdate"); //이것만 새로 입력 받아야함.
-    String uco = request.getParameter("uco");
+    String sid = request.getParameter("sid");
+    String pid = request.getParameter("pid");
+    String CICode  = request.getParameter("CICode");
+  	// Consult_Info이것만 새로 입력 받아야함.
+    String Consult_content = request.getParameter("Consult_content"); //이거 paragraph라 스트링에 다 안 들어갈 수도 있어용
 %>
 
 <%
@@ -36,21 +40,11 @@
 <body>
 
 <%
-	if (loginType.equals("STUDENT")) {
-		sql = "UPDATE STUDENT SET"
-				+" SPW = '"+pwUpdate+"' WHERE"
-				+" SId= '"+id+"'"
-				+" AND SUco = '"+uco+"'";
-	}
-	else if (loginType.equals("PROFESSOR")) {
-		sql = "UPDATE PROFESSOR SET"
-				+" SPW = '"+pwUpdate+"' WHERE"
-				+" PId= '"+id+"'"
-				+" AND SUco = '"+uco+"'";
-	}
-	else {
-		sql = "";
-	}
+	sql = "UPDATE CONSULT_INFO SET"
+		 +" Consult_content = '"+Consult_content+"' WHERE "
+		 +" SId= '"+sid+"'"
+		 +" PId = '"+pid+"'"
+		 +" CICode = '"+CICode+"'";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	conn.commit();

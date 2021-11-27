@@ -9,10 +9,7 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	String loginType = request.getParameter("loginType");
-    String id = request.getParameter("id");
-    String pwUpdate = request.getParameter("pwUpdate"); //이것만 새로 입력 받아야함.
-    String uco = request.getParameter("uco");
+	String CNum = request.getParameter("CNum");
 %>
 
 <%
@@ -35,28 +32,18 @@
 </head>
 <body>
 
-<%
-	if (loginType.equals("STUDENT")) {
-		sql = "UPDATE STUDENT SET"
-				+" SPW = '"+pwUpdate+"' WHERE"
-				+" SId= '"+id+"'"
-				+" AND SUco = '"+uco+"'";
-	}
-	else if (loginType.equals("PROFESSOR")) {
-		sql = "UPDATE PROFESSOR SET"
-				+" SPW = '"+pwUpdate+"' WHERE"
-				+" PId= '"+id+"'"
-				+" AND SUco = '"+uco+"'";
-	}
-	else {
-		sql = "";
-	}
+<% //Consult_type에 따른 쿼리
+	sql = "DELETE FROM CONSULTATION "
+			+ "WHERE CNum = '" + CNum + "' ";
+			
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
-	conn.commit();
+	//완료 출력?
+	
 	rs.close();
 	pstmt.close();
 %>
+
 
 </body>
 </html>

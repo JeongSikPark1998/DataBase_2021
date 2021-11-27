@@ -35,6 +35,11 @@
 <body>
 	
 <%
+	session.setAttribute("loginType", loginType);
+	session.setAttribute("id", id);
+	session.setAttribute("pw", pw);
+	session.setAttribute("uco", uco);
+	
 	if (loginType.equals("STUDENT")) {
 		sql = "SELECT SId FROM STUDENT"
 				+" WHERE SId = '"+id+"'"

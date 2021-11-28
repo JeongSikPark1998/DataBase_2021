@@ -15,5 +15,10 @@
 		</ul>
 		</nav>
 	</header>
+	<nav>
+		<ul>
+			<li><a href="schedule_professor.jsp">schedule consultation</a></li>
+		</ul>
+	</nav>
 </body>
 </html>

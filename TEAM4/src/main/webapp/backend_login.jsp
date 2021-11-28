@@ -13,6 +13,11 @@
     String id = request.getParameter("id");
     String pw = request.getParameter("pw");
     String uco = request.getParameter("uco");
+    
+    session.setAttribute("loginType", loginType);
+	session.setAttribute("id", id);
+	session.setAttribute("pw", pw);
+	session.setAttribute("uco", uco);
 %>
 
 <%
@@ -35,11 +40,6 @@
 <body>
 	
 <%
-	session.setAttribute("loginType", loginType);
-	session.setAttribute("id", id);
-	session.setAttribute("pw", pw);
-	session.setAttribute("uco", uco);
-	
 	if (loginType.equals("STUDENT")) {
 		sql = "SELECT SId FROM STUDENT"
 				+" WHERE SId = '"+id+"'"

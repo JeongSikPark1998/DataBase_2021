@@ -6,7 +6,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
-
+<h1>Update your Password</h1>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String loginType = request.getParameter("loginType");

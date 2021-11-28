@@ -33,13 +33,13 @@
 
 </head>
 <body>
-
+<form name="form" action="account.jsp" method="post">
 <% //본인 정보
 	if (loginType.equals("STUDENT")) {
 		sql = "SELECT SId, SLName, SFName, SBirth, SAge, SPhone, SMail, SSex, SFco FROM STUDENT WHERE SId = '"+id+"'";
 	}
 	else if (loginType.equals("PROFESSOR")) {
-		sql = "SELECT PId, PLName, PFName, PBirth, PAge, PPhone,PMail, PSex, PFco FROM PROFESSOR WHERE PId = '"+id+"'";
+		sql = "SELECT PId, PLName, PFName, PBirth, PAge, PPhone, PMail, PSex, PFco FROM PROFESSOR WHERE PId = '"+id+"'";
 	}
 	else {
 		sql = "";
@@ -49,15 +49,15 @@
 	rsmd = rs.getMetaData();
 	cnt = rsmd.getColumnCount();
 	while(rs.next()){
-		out.println(rs.getString(1)); //id
-		out.println(rs.getString(2)); //lname
-		out.println(rs.getString(3)); //fname
-		out.println(rs.getString(4)); //birth
-		out.println(rs.getInt(5)); //age
-		out.println(rs.getString(6)); //phone
-		out.println(rs.getString(7)); //mail
-		out.println(rs.getString(8)); //sex
-		out.println(rs.getString(9)); //fco
+		String myId = rs.getString(1);
+		String myLname = rs.getString(2);
+		String myFname = rs.getString(3);
+		String myBirth = rs.getString(4);
+		String myAge = rs.getInt(5);
+		String myPhone = rs.getString(6);
+		String myMail = rs.getString(7);
+		String mySex = rs.getString(8);
+		String myFco = rs.getString(9);
 	}
 	rs.close();
 	pstmt.close();
@@ -78,13 +78,13 @@
 	rsmd = rs.getMetaData();
 	cnt = rsmd.getColumnCount();
 	while(rs.next()){
-		out.println(rs.getString(1)); //id
-		out.println(rs.getDouble(2)); //lname
-		out.println(rs.getString(3)); //fname
+		String mysubId = rs.getString(1);
+		String mysubLname = rs.getString(2);
+		String mysubFname = rs.getString(3);
 	}
 	rs.close();
 	pstmt.close();
 %>
-
+</form>
 </body>
 </html>

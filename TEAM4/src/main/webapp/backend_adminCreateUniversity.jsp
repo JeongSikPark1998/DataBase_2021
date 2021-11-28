@@ -32,14 +32,15 @@
 </head>
 <body>
 
-<% //Consult_type에 따른 쿼리
-	sql = "INSERT INTO UNIVERSITY VALUES('" + UName + "', '"
-			+ "(SELECT MAX(UCode) + 1 FROM UNIVERSITY)" + "')";
+<%
+	sql = "INSERT INTO UNIVERSITY VALUES('" + UName + "', "
+			+ "(SELECT MAX(UCode) + 1 FROM UNIVERSITY))";
 			
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
-	//완료 출력?
-	
+	//있는 대학교를 넣었을 경우의 예외 처리 안됨.
+	response.sendRedirect("main_administrator.jsp");
+	//팝업 창 안 띄우고 바로 돌아가버림.
 	rs.close();
 	pstmt.close();
 %>

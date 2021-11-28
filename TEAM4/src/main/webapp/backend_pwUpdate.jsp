@@ -6,13 +6,12 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
-<h1>Update your Password</h1>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String loginType = request.getParameter("loginType");
-    String id = request.getParameter("id");
+	String loginType = (String)session.getAttribute("loginType");
+    String id = (String)session.getAttribute("id");
+    String uco = (String)session.getAttribute("uco");
     String pwUpdate = request.getParameter("pwUpdate"); //이것만 새로 입력 받아야함.
-    String uco = request.getParameter("uco");
 %>
 
 <%
@@ -23,6 +22,7 @@
    String pass = "1234";
    String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
    Connection conn = null;
+   
    PreparedStatement pstmt;
    ResultSet rs;
    String sql;
@@ -31,11 +31,10 @@
    Class.forName("oracle.jdbc.driver.OracleDriver");
    conn = DriverManager.getConnection(url, user, pass);
 %>
-
 </head>
 <body>
-
 <%
+	
 	if (loginType.equals("STUDENT")) {
 		sql = "UPDATE STUDENT SET"
 				+" SPW = '"+pwUpdate+"' WHERE"
@@ -53,7 +52,9 @@
 	}
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
+	conn.setAutoCommit(false);
 	conn.commit();
+	response.sendRedirect("main_student.jsp");
 	rs.close();
 	pstmt.close();
 %>

@@ -21,26 +21,24 @@
    String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
    Connection conn = null;
    PreparedStatement pstmt;
-   ResultSet rs;
    String sql;
    int cnt;
    ResultSetMetaData rsmd;
    Class.forName("oracle.jdbc.driver.OracleDriver");
    conn = DriverManager.getConnection(url, user, pass);
+   
 %>
 
 </head>
 <body>
 
 <% //Consult_type에 따른 쿼리
-	sql = "DELETE FORM UNIVERSITY "
-			+ "WHERE UCode = '" + UCode + "' ";
-			
+	sql = "DELETE FROM UNIVERSITY WHERE UCode = '" + UCode + "'";	
 	pstmt = conn.prepareStatement(sql);
-	rs = pstmt.executeQuery();
-	//완료 출력?
-	
-	rs.close();
+	pstmt.executeQuery();
+	response.sendRedirect("main_administrator.jsp");
+	//팝업 창 안 띄우고 바로 돌아가버림.
+			
 	pstmt.close();
 %>
 

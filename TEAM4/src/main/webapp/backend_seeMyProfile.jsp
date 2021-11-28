@@ -36,7 +36,7 @@
 </head>
 <body>
 <h1> My Page </h1>
-<form name="form" action="backend_pwUpdate.jsp" method="post">
+<form name="form" action="pwUpdate.jsp" method="post">
 <% //본인 정보
 	if (loginType.equals("STUDENT")) {
 		sql = "SELECT SId, SLName, SFName, SBirth, SAge, SPhone, SMail, SSex, SFco FROM STUDENT WHERE SId = '"+id+"'";
@@ -52,11 +52,13 @@
 	rsmd = rs.getMetaData();
 	cnt = rsmd.getColumnCount();
 	
+	StringTokenizer st;
 	rs.next();
 		String myId = rs.getString(1);
 		String myLname = rs.getString(2);
 		String myFname = rs.getString(3);
 		String myBirth = rs.getString(4);
+		st = new StringTokenizer(myBirth);
 		int myAge = rs.getInt(5);
 		String myPhone = rs.getString(6);
 		String myMail = rs.getString(7);

@@ -47,7 +47,7 @@
 
 <%  //CONSULTATION »ðÀÔ
 	//INSERT INTO CONSULTATION VALUES('FOLLOW', 'A7127', 4, '13:00 - 13:30', 'Arely', '0112', 'Jett', '2019171428', '2014135925', '2021-12-16', '11001');
-	sql = "INSERT INTO CONSULTATION VALUES('"+Consult_Type +"', '"+Consult_Space +"', "+C_Max_Reserv_Num+", '"+CTime+"', '"+CProfName+"', '"+"(SELECT MAX(CNum) + 1 FROM CONSULTATION)"+"', NULL, DEFAULT, '"+PId+"', '"+Date+"', '"+Uco+"')";
+	sql = "INSERT INTO CONSULTATION VALUES('"+Consult_Type +"', '"+Consult_Space +"', "+C_Max_Reserv_Num+", '"+CTime+"', '"+CProfName+"', "+"(SELECT MAX(CNum) + 1 FROM CONSULTATION)"+", NULL, DEFAULT, '"+PId+"', '"+Date+"', '"+Uco+"')";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	conn.commit(); //commit!!!

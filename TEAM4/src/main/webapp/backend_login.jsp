@@ -64,6 +64,7 @@
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	RequestDispatcher dispatcher;
+	rs.next();
 	if (rs.getRow() >= 1) {
 		//login ¼º°ø
 		System.out.println("success");

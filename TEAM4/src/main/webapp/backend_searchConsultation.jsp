@@ -12,6 +12,7 @@
     String CProfName = request.getParameter("CProfName"); //교수 이름
     //String id = request.getParameter("id"); //학생 아이디
     String id = (String)session.getAttribute("id");
+    String uco = (String)session.getAttribute("uco");
 
     System.out.println(Consult_Type);
 

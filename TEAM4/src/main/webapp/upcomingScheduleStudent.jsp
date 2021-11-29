@@ -31,10 +31,11 @@
 %>
 </head>
 <body>
+<h2>your upcoming schedule!</h2>
 	<form name="form" action="update_consultation_student.jsp" method="post">
 <% 
 	//Consult_type에 따른 쿼리
-	if (Consult_Type.equals("COURSE")) {
+	if(Consult_Type.equals("COURSE")) {
 		sql = "select C.consult_type, C.CProfName, C.CDate, C.CTime, C.Consult_Space, C.C_Max_Reserv_Num, C.CNum, C.CPId "
 				+ "from consultation C "
 				+ "where cprofname = '" + CProfName + "' "
@@ -49,7 +50,7 @@
 				+ "				and co2.role = 'p')"
 				+ "and C.CSId = '0000000000'";
 	}
-	else if (Consult_Type.equals("FOLLOW")) {//학생이 지도교수를 맞게 신청하면 보임
+	else if(Consult_Type.equals("FOLLOW")) {//학생이 지도교수를 맞게 신청하면 보임
 		sql = "select C.consult_type, C.CProfName, C.CDate, C.CTime, C.Consult_Space, C.C_Max_Reserv_Num, C.CNum, C.CPId "
 			+ "from consultation C, follow_student "
 			+ "where tpid = cpid and tsid = csid "
@@ -126,7 +127,7 @@
 	out.println("</table>");
 	
 	//select consultation number
-	out.println("<br><label for=\"select_num2\">상담 선택</label>");
+	out.println("<br><label for=\"select_num2\">수정할 상담 번호 선택</label>");
 	out.println("<select name = \"select_num2\" id=\"select_num2\">");
 	for(i=1; i<total_cnt+1; i++){
 		out.println("<option value = \"" + i +"\">"+ i +"</option>");
@@ -138,6 +139,7 @@
 	out.println("<input type=\"submit\" value=\"update consultation\"></div>");
 
 	//session enroll
+	//searchConsultation에서 사용한 변수 뒤에 인덱스2 값만 추가해줌
 	session.setAttribute("c2", c);
 	session.setAttribute("p2", p);
 	session.setAttribute("d2", d);

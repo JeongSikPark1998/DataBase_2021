@@ -9,8 +9,8 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	String CNum = request.getParameter("CNum");
-	String SId = request.getParameter("CSId");
+	String CNum = (String)session.getAttribute("CNum2");
+	String SId = (String)session.getAttribute("id");
 %>
 
 <%
@@ -40,11 +40,9 @@
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	//완료 출력?
-	
+	response.sendRedirect("main_student.jsp");
 	rs.close();
 	pstmt.close();
 %>
-
-
 </body>
 </html>

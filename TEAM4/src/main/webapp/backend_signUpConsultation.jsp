@@ -102,6 +102,12 @@
 	double GPA = Double.parseDouble(request.getParameter("GPA"));
 	String military = request.getParameter("m_served");
 	String content = request.getParameter("content");
+	//session에 신청 form 정보 등록
+	session.setAttribute("grade", grade);
+	session.setAttribute("age", age);
+	session.setAttribute("GPA", GPA);
+	session.setAttribute("military", military);
+	session.setAttribute("content", content);
 %>
 
 <%  //CONSULT_INFO 삽입
@@ -112,6 +118,8 @@
 	pstmt3 = conn.prepareStatement(sql);
 	pstmt3.executeQuery();
 	conn.commit(); //commit!!!
+	//등록을 마치면 main_student.jsp로 이동
+	//등록된 정보는 mypage의 upcoming schedule에서 확인 가능
 	response.sendRedirect("main_student.jsp");
 	pstmt3.close();
 %>

@@ -19,10 +19,13 @@ String[] CPId = (String[])session.getAttribute("CPId");
 int selectnum = Integer.parseInt(request.getParameter("select_num"));
 selectnum -= 1;
 session.setAttribute("selectnum", selectnum);
+//Consult_Type는 이미 지정 완료
+//CProfName는 이미 지정 완료
 session.setAttribute("Consult_date", d[selectnum]);
 session.setAttribute("Consult_time", t[selectnum]);
 session.setAttribute("Consult_Space", pl[selectnum]);
 session.setAttribute("Max", m[selectnum]);
+//이후에 사용할 것들
 session.setAttribute("CNum", CNum[selectnum]);
 session.setAttribute("CPId", CPId[selectnum]);
 %>

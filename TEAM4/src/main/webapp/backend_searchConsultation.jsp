@@ -145,6 +145,7 @@
 	out.println("<input type=\"submit\" value=\"apply\"></div>");
 
 	//session enroll
+	//배열 전체를 attribute로 등록함.
 	session.setAttribute("c", c);
 	session.setAttribute("p", p);
 	session.setAttribute("d", d);

@@ -11,8 +11,12 @@
 		<!-- manage upcoming schedule and my account -->
 	<nav>
 	<ul>
-		<li><a href="upcomingScheduleStudent.jsp">UPCOMING SCHEDULE</a></li>
-		<li><a href="backend_seeMyProfile.jsp">ACCOUNT</a></li>
+		<li>
+		<input type = "button" onclick = "location.href='upcomingScheduleStudent.jsp'" value="UPCOMING SCHEULE">
+		</li>
+		<li>
+		<input type = "button" onclick = "location.href='backend_seeMyProfile.jsp'" value="ACCOUNT">
+		</li>
 	</ul>
 	</nav>
 </body>

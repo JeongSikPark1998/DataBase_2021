@@ -59,6 +59,7 @@
 		String myFname = rs.getString(3);
 		String myBirth = rs.getString(4);
 		st = new StringTokenizer(myBirth);
+		myBirth = st.nextToken();
 		int myAge = rs.getInt(5);
 		String myPhone = rs.getString(6);
 		String myMail = rs.getString(7);

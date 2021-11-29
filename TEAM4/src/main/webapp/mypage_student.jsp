@@ -11,7 +11,7 @@
 		<!-- manage upcoming schedule and my account -->
 	<nav>
 	<ul>
-		<li><a href="upcoming_schedule_student.jsp">UPCOMING SCHEDULE</a></li>
+		<li><a href="upcomingScheduleStudent.jsp">UPCOMING SCHEDULE</a></li>
 		<li><a href="backend_seeMyProfile.jsp">ACCOUNT</a></li>
 	</ul>
 	</nav>

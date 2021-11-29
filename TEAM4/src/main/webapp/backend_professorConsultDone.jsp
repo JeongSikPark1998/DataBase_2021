@@ -32,16 +32,16 @@
 </head>
 <body>
 
-<% //Consult_type에 따른 쿼리
+<% 
 	conn.setAutoCommit(false);
 	sql = "DELETE FROM CONSULTATION "
 			+ "WHERE CNum = '" + CNum + "' ";
 			
 	pstmt = conn.prepareStatement(sql);
 	pstmt.executeQuery();
-	//완료 출력?
+	
 	conn.commit();
-	response.sendRedirect("schedule_professor.jsp");
+	response.sendRedirect("main_professor.jsp");
 	pstmt.close();
 		
 %>

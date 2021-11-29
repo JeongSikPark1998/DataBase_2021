@@ -111,24 +111,23 @@
 	
 	//print
 	out.println("<table border=\"1\">");
-	out.println("<th>");
-	out.println("<td><b>consult type</b></td>");
-	out.println("<td><b>professor</b></td>");
-	out.println("<td><b>date</b></td>");
-	out.println("<td><b>time</b></td>");
-	out.println("<td><b>place</b></td>");
-	out.println("<td><b>max participant number</b></td>");
-	out.println("</th>");
+	out.println("<th>#</th>");
+	out.println("<th>consult type</th>");
+	out.println("<th>professor</th>");
+	out.println("<th>date</th>");
+	out.println("<th>time</th>");
+	out.println("<th>place</th>");
+	out.println("<th>max participant number</th>");
 	
-	for(i=0; i<total_cnt; i++){
+	for(i=1; i<=total_cnt; i++){
 		out.println("<tr>");
-		out.println("<td>" + i+1 + "</td>");
-		out.println("<td>" + c[i] + "</td>");//Consult_type
-		out.println("<td>" + p[i] + "</td>");//profname
-		out.println("<td>" + d[i] + "</td>");//Cdate
-		out.println("<td>" + t[i] + "</td>");//ctime
-		out.println("<td>" + pl[i] + "</td>");//consult_space
-		out.println("<td>" + m[i] + "</td>");//c_max_reserv_num
+		out.println("<td>" + i + "</td>");
+		out.println("<td>" + c[i-1] + "</td>");//Consult_type
+		out.println("<td>" + p[i-1] + "</td>");//profname
+		out.println("<td>" + d[i-1] + "</td>");//Cdate
+		out.println("<td>" + t[i-1] + "</td>");//ctime
+		out.println("<td>" + pl[i-1] + "</td>");//consult_space
+		out.println("<td>" + m[i-1] + "</td>");//c_max_reserv_num
 		out.println("</tr>");
 	}
 	out.println("</table>");

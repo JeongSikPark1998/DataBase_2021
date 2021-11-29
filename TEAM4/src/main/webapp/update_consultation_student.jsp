@@ -11,7 +11,7 @@
 		<h1>Update your consultation</h1>
 		<nav>
 		<ul>
-			<li><a href="backend_update_consultinfo_student.jsp">update your consult information</a></li>
+			<li><a href="update_consultinfo_student.jsp">update your consult information</a></li>
 		</ul>
 		</nav>
 	</header>

@@ -28,7 +28,7 @@ session.setAttribute("CPId2", CPId2[selectnum]);
 %>
 </head>
 <body>
-	<form name="form" action="backend_signUpConsultation.jsp" method="post">
+	<form name="form" action="backend_update_consultinfo_student.jsp" method="post">
 		<h3>Insert your Information</h3>
 		<fieldset>
 			<legend>Fill out the form</legend>

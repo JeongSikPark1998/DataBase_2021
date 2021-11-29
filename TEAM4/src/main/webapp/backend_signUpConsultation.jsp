@@ -112,6 +112,7 @@
 	pstmt3 = conn.prepareStatement(sql);
 	pstmt3.executeQuery();
 	conn.commit(); //commit!!!
+	response.sendRedirect("main_student.jsp");
 	pstmt3.close();
 %>
 

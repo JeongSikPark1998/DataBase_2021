@@ -32,16 +32,18 @@
 </head>
 <body>
 
-<% //Consult_type¿¡ µû¸¥ Äõ¸®
+<% //Consult_typeì— ë”°ë¥¸ ì¿¼ë¦¬
+	conn.setAutoCommit(false);
 	sql = "DELETE FROM CONSULTATION "
 			+ "WHERE CNum = '" + CNum + "' ";
 			
 	pstmt = conn.prepareStatement(sql);
-	rs = pstmt.executeQuery();
-	//¿Ï·á Ãâ·Â?
-	
-	rs.close();
+	pstmt.executeQuery();
+	//ì™„ë£Œ ì¶œë ¥?
+	conn.commit();
+	response.sendRedirect("schedule_professor.jsp");
 	pstmt.close();
+		
 %>
 
 

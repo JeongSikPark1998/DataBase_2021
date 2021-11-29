@@ -63,9 +63,8 @@
 	}
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
-	rsmd = rs.getMetaData();
 	RequestDispatcher dispatcher;
-	if (rsmd.getColumnCount() >= 1) {
+	if (rs.getRow() >= 1) {
 		//login ¼º°ø
 		System.out.println("success");
 		if(loginType.equals("STUDENT")){

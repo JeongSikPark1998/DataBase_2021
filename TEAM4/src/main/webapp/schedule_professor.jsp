@@ -24,8 +24,10 @@
 	Connection conn = null;
 	PreparedStatement pstmt;
 	PreparedStatement pstmt2;
+	PreparedStatement pstmt3;
 	ResultSet rs;
 	ResultSet rs2;
+	ResultSet rs3;
 	String sql;
 	int cnt;
 	ResultSetMetaData rsmd;
@@ -39,21 +41,24 @@
 <%//해당 학교 개설 학과 불러오기
 	sql = "SELECT * FROM CONSULTATION WHERE CSUco = '"+puco+"' and CPId = '" +pid+ "' and CSId = '0000000000' ORDER BY Cnum";
 	String sql2 = "SELECT COUNT(*) - 1 FROM CONSULTATION WHERE CSUco = '"+puco+"' and CPId = '" +pid+ "' GROUP BY Cnum";
+	
 	pstmt = conn.prepareStatement(sql);
 	pstmt2 = conn.prepareStatement(sql2);
+	
 	rs = pstmt.executeQuery();
 	rs2 = pstmt2.executeQuery();
-	out.println("<h2>Open Consultation</h2>");
-	out.println("<table border=\"1\">");
 	
-	out.println("<th>CNum</th>");
-	out.println("<th>Consult_Type</th>");
-	out.println("<th>Consult_Space</th>");
-	out.println("<th>Consult_Date</th>");
-	out.println("<th>Consult_Time</th>");
-	out.println("<th>Reserv_Number</th>");
+	out.println("<h2>Open Consultation</h2>");
+	
 	String pname = "";
 	while(rs.next() && rs2.next()){
+		out.println("<table border=\"1\">");
+		out.println("<th>CNum</th>");
+		out.println("<th>Consult_Type</th>");
+		out.println("<th>Consult_Space</th>");
+		out.println("<th>Consult_Date</th>");
+		out.println("<th>Consult_Time</th>");
+		out.println("<th>Reserv_Number</th>");
 		pname = (String)rs.getString(9);
 		out.println("<tr>");
 		out.println("<td>" + rs.getString(6)+"</td>");
@@ -66,9 +71,30 @@
 		out.println("<td>" + rs.getString(4)+"</td>");
 		out.println("<td>" + rs2.getInt(1) + " / " + max_r +"</td>");
 		out.println("</tr>");
+		if(rs2.getInt(1) == 0)
+			break;
+		else{
+			out.println("<th>SName</th>");
+			out.println("<th>School_Year</th>");
+			out.println("<th>GPA</th>");
+			out.println("<th>AGE</th>");
+			out.println("<th>Military_served</th>");
+			out.println("<th>Consult_content</th>");
+			String sql3 ="SELECT * FROM CONSULT_INFO WHERE CICode = '" + rs.getString(6) +"'";
+			pstmt3 = conn.prepareStatement(sql3);
+			rs3 = pstmt3.executeQuery();
+			while(rs3.next()){
+				out.println("<tr><td>" + rs3.getString(2)+"</td>");
+				out.println("<td>" + rs3.getString(3)+"</td>");
+				out.println("<td>" + rs3.getString(4)+"</td>");
+				out.println("<td>" + rs3.getString(5)+"</td>");
+				out.println("<td>" + rs3.getString(6)+"</td>");
+				out.println("<td>" + rs3.getString(7)+"</td></tr>");
+			}						
+		}
+		out.println("</table><br></br>");
 	}
 	session.setAttribute("pname", pname);
-	out.println("</table><br></br>");
 	rsmd = null;
 	rs.close();
 	pstmt.close();

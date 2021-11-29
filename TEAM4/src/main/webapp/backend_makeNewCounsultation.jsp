@@ -9,13 +9,19 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	//signUpConsultation ÇÐ»ý »ó´ã ½ÅÃ» - µ¿½Ã¼º Á¦¾î
-	String CProfName = request.getParameter("CProfName");
-	String CNum = request.getParameter("CNum"); // ÀÚµ¿Áõ°¡
-	String PId = request.getParameter("CPId");
-	String Uco = request.getParameter("CSUco");
-    //CProfName, PId, Uco¸¦ Á¦¿ÜÇÑ ³ª¸ÓÁö Á¤º¸µéÀº ÀÔ·Â ¹Þ¾Æ¾ßÇÔ.
-    //À§ÀÇ Á¤º¸´Â ·Î±×ÀÎ Á¤º¸·Î ÀÌÀü ÆäÀÌÁö¿¡¼­ ºÒ·¯¿Í¾ßÇÔ.
+	//signUpConsultation í•™ìƒ ìƒë‹´ ì‹ ì²­ - ë™ì‹œì„± ì œì–´
+	String Consult_Type = request.getParameter("Consult_Type");
+	String Consult_Space = request.getParameter("Consult_Space");
+	String C_Max_Reserv_Num = request.getParameter("C_Max_Reserv_Num");
+	String CTime = request.getParameter("CTime");
+	String CDate = request.getParameter("CDate");
+	
+	String pname = (String)session.getAttribute("pname");
+	String puco = (String)session.getAttribute("uco");
+	String pid = (String)session.getAttribute("id");
+	//cnum ìžë™ì¦ê°€
+    //CProfName, PId, Ucoë¥¼ ì œì™¸í•œ ë‚˜ë¨¸ì§€ ì •ë³´ë“¤ì€ ìž…ë ¥ ë°›ì•„ì•¼í•¨.
+    //ìœ„ì˜ ì •ë³´ëŠ” ë¡œê·¸ì¸ ì •ë³´ë¡œ ì´ì „ íŽ˜ì´ì§€ì—ì„œ ë¶ˆëŸ¬ì™€ì•¼í•¨.
 %>
 
 <%
@@ -38,19 +44,14 @@
 </head>
 <body>
 
-<%
-	//°³¼³ form¿¡¼­ ¹Þ¾Æ¿Ã Á¤º¸µé
-	int C_Max_Reserv_Num = 0;
-	String Consult_Type = "",Consult_Space= "";
-	String CTime="",Date="";
-%>
-
-<%  //CONSULTATION »ðÀÔ
+<%  //CONSULTATION ì‚½ìž…
 	//INSERT INTO CONSULTATION VALUES('FOLLOW', 'A7127', 4, '13:00 - 13:30', 'Arely', '0112', 'Jett', '2019171428', '2014135925', '2021-12-16', '11001');
-	sql = "INSERT INTO CONSULTATION VALUES('"+Consult_Type +"', '"+Consult_Space +"', "+C_Max_Reserv_Num+", '"+CTime+"', '"+CProfName+"', "+"(SELECT MAX(CNum) + 1 FROM CONSULTATION)"+", NULL, DEFAULT, '"+PId+"', '"+Date+"', '"+Uco+"')";
+	conn.setAutoCommit(false);
+	sql = "INSERT INTO CONSULTATION VALUES('"+Consult_Type +"', '"+Consult_Space +"', "+C_Max_Reserv_Num+", '"+CTime+"', '"+pname+"', "+"(SELECT MAX(CNum) + 1 FROM CONSULTATION)"+", NULL, DEFAULT, '"+ pid +"', '"+ CDate +"', '"+ puco +"')";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	conn.commit(); //commit!!!
+	response.sendRedirect("schedule_professor.jsp");
 	rs.close();
 	pstmt.close();
 %>

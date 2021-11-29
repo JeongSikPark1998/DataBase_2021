@@ -7,11 +7,54 @@
 <head>
 <meta charset="EUC-KR">
 <title>Team4: Administrator</title>
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
+<%
+	String serverIP = "localhost";
+	String strSID = "orcl";
+	String portNum = "1521";
+	String user = "TEAM4";
+	String pass = "1234";
+	String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
+	Connection conn = null;
+	PreparedStatement pstmt;
+	ResultSet rs;
+	String sql;
+	int cnt;
+	ResultSetMetaData rsmd;
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	conn = DriverManager.getConnection(url, user, pass);
+%>
 </head>
 <body>
 	<header id="header">
 		<h1>Admin</h1>
 	</header>
+<%//해당 학교 개설 학과 불러오기
+	sql = "SELECT * FROM UNIVERSITY ORDER BY UCODE";
+	pstmt = conn.prepareStatement(sql);
+	rs = pstmt.executeQuery();
+	out.println("<h2>University List</h2>");
+	out.println("<table border=\"1\">");
+	rsmd = rs.getMetaData();
+	cnt = rsmd.getColumnCount();
+	for(int i = 1; i<= cnt; i++)
+		out.println("<th>" + rsmd.getColumnName(i)+"</th>");
+	rs.next();
+	while(rs.next()){
+		out.println("<tr>");
+		out.println("<td>" + rs.getString(1)+"</td>");
+		out.println("<td>" + rs.getString(2)+"</td>");
+		out.println("</tr>");
+	}
+	out.println("</table><br></br>");
+	rsmd = null;
+	rs.close();
+	pstmt.close();
+%>
+	
+	
 	<form name="form" method="post">
 		<h3>Create New University</h3>
 		<fieldset>

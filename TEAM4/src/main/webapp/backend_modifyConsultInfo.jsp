@@ -16,9 +16,9 @@
 	//String sid = request.getParameter("sid");
 	String sid = (String)session.getAttribute("id");
     //String pid = request.getParameter("pid");
-    String pid = (String)session.getAttribute("CPId2");
+    String pid = (String)session.getAttribute("CPId21");
     //String CICode  = request.getParameter("CICode");
-    String CICode = (String)session.getAttribute("CNum2");
+    String CICode = (String)session.getAttribute("CNum21");
   	// Consult_Info이것만 새로 입력 받아야함.
     String Consult_content = request.getParameter("content2"); //이거 paragraph라 스트링에 다 안 들어갈 수도 있어용
 %>
@@ -46,11 +46,12 @@
 <%
 	sql = "UPDATE CONSULT_INFO SET"
 		 +" Consult_content = '"+Consult_content+"' WHERE "
-		 +" SId= '"+sid+"'"
-		 +" PId = '"+pid+"'"
-		 +" CICode = '"+CICode+"'";
+		 +" ISId= '"+sid+"'"
+		 +" AND IPId = '"+pid+"'"
+		 +" AND CICode = '"+CICode+"'";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
+	conn.setAutoCommit(false);
 	conn.commit();
 	response.sendRedirect("main_student.jsp");
 	rs.close();

@@ -9,7 +9,7 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	String CNum = (String)session.getAttribute("CNum2");
+	String CNum = (String)session.getAttribute("CNum21");
 	String SId = (String)session.getAttribute("id");
 %>
 
@@ -35,11 +35,13 @@
 
 <% //Consult_type에 따른 쿼리
 	sql = "DELETE FROM CONSULTATION "
-			+ "WHERE CNum = '" + CNum + "' and '" + "CSId = '" + SId + "'";
+			+ "WHERE CNum = '" + CNum + "' and " + "CSId = '" + SId + "'";
 
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	//완료 출력?
+	conn.setAutoCommit(false);
+	conn.commit();
 	response.sendRedirect("main_student.jsp");
 	rs.close();
 	pstmt.close();

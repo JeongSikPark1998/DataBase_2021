@@ -4,9 +4,17 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>Team4: Consultation</title>
 </head>
 <body>
-	<h1>Professor my page</h1>
+	<h2>MY PAGE</h2><br><br>
+		<!-- manage upcoming schedule and my account -->
+	<nav>
+	<ul>
+		<li>
+		<input type = "button" onclick = "location.href='backend_seeMyProfile.jsp'" value="ACCOUNT">
+		</li>
+	</ul>
+	</nav>
 </body>
 </html>

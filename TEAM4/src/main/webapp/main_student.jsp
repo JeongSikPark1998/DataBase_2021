@@ -61,10 +61,10 @@
 			<input type="submit" value="SEARCH">
 		</div>
 		
-
+	<h2>Follow Professor Consultation</h2>
 	<%
-	//º¸¿©ÁÖ°í ½ÍÀº Á¤º¸ °¡Á®´Ù ¾²½Ã¸é µË´Ï´Ù!
-	//È¤½Ã ¸ô¶ó¼­ ³²°Üµ×´Âµ¥ ÀÌ°Ç ÀÚ½ÅÀÇ Áöµµ±³¼ö°¡ »ó´ãÀ» °³¼³ÇßÀ»¶§ º¸¿©ÁÖ´Â °Ì´Ï´Ù.
+	//ë³´ì—¬ì£¼ê³  ì‹¶ì€ ì •ë³´ ê°€ì ¸ë‹¤ ì“°ì‹œë©´ ë©ë‹ˆë‹¤!
+	//í˜¹ì‹œ ëª°ë¼ì„œ ë‚¨ê²¨ë’€ëŠ”ë° ì´ê±´ ìžì‹ ì˜ ì§€ë„êµìˆ˜ê°€ ìƒë‹´ì„ ê°œì„¤í–ˆì„ë•Œ ë³´ì—¬ì£¼ëŠ” ê²ë‹ˆë‹¤.
 	sql = "select consult_type, CProfName, CDate, CTime, Consult_Space, C_Max_Reserv_Num, CNum, CPId"
 			+ " FROM CONSULTATION"
 			+ " WHERE CPId = (SELECT TPId FROM FOLLOW_STUDENT WHERE TSId = '"+id+"')"
@@ -130,12 +130,12 @@
 	rs.close();
 	pstmt.close();
 %>
-
+<h2>Course Professor Consultation</h2>
 <%
-	//º¸¿©ÁÖ°í ½ÍÀº Á¤º¸ °¡Á®´Ù ¾²½Ã¸é µË´Ï´Ù!
-	//ÀÚ½ÅÀÌ ¼ö°­ÇÏ´Â °ú¸ñÀÇ ±³¼ö´ÔÀÇ »ó´ãÀ» º¸¿©ÁÝ´Ï´Ù.
+	//ë³´ì—¬ì£¼ê³  ì‹¶ì€ ì •ë³´ ê°€ì ¸ë‹¤ ì“°ì‹œë©´ ë©ë‹ˆë‹¤!
+	//ìžì‹ ì´ ìˆ˜ê°•í•˜ëŠ” ê³¼ëª©ì˜ êµìˆ˜ë‹˜ì˜ ìƒë‹´ì„ ë³´ì—¬ì¤ë‹ˆë‹¤.
 	sql = "select consult_type, CProfName, CDate, CTime, Consult_Space, C_Max_Reserv_Num, CNum, CPId"
-			+ " FROM CONSULTATION"
+			+" FROM CONSULTATION"
 			+" WHERE CPId IN (SELECT DISTINCT CId FROM COURSE_REGISTRATION"
 			+"		 WHERE CRco IN (SELECT CRco FROM COURSE_REGISTRATION"
 			+"				 WHERE CId = '"+id+"')"
@@ -143,7 +143,8 @@
 			+"				 WHERE SId = '"+id+"')"
 			+"		 AND CRUco = '"+uco+"'"
 			+"		 AND Role = 'p')"
-			+" AND CSId = '0000000000' AND CSUco = '"+uco+"'";
+			+" AND CSId = '0000000000' AND CSUco = '"+uco+"'"
+			+" AND consult_type = 'COURSE'";
 
 	pstmt2 = conn.prepareStatement(sql);
 	rs2 = pstmt2.executeQuery();

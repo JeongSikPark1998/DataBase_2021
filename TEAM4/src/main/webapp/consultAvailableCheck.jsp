@@ -8,9 +8,28 @@
 <title>checking...</title>
 <%
 	request.setCharacterEncoding("UTF-8");
-    String CNum = (String)session.getAttribute("CNum21");
-	int selectnumIn = Integer.parseInt(request.getParameter("select_num"));
-	session.setAttribute("selectnumIn", selectnumIn);
+	///////////
+	String[] c = (String[]) session.getAttribute("c");
+	String[] p = (String[]) session.getAttribute("p");
+	String[] d = (String[]) session.getAttribute("d");
+	String[] t = (String[]) session.getAttribute("t");
+	String[] pl = (String[]) session.getAttribute("pl");
+	int[] m = (int[]) session.getAttribute("m");
+	String[] CNumIn = (String[])session.getAttribute("CNumIn");
+	String[] CPIdIn = (String[])session.getAttribute("CPIdIn");
+	//int selectnumIn = (int)session.getAttribute("selectnum");
+	int selectnum = Integer.parseInt(request.getParameter("select_num"));
+	selectnum -= 1;
+	session.setAttribute("selectnum", selectnum);
+	//Consult_Type는 이미 지정 완료
+	//CProfName는 이미 지정 완료
+	session.setAttribute("Consult_date", d[selectnum]);
+	session.setAttribute("Consult_time", t[selectnum]);
+	session.setAttribute("Consult_Space", pl[selectnum]);
+	session.setAttribute("Max", m[selectnum]);
+	//이후에 사용할 것들
+	session.setAttribute("CNum", CNumIn[selectnum]);
+	session.setAttribute("CPId", CPIdIn[selectnum]);
 %>
 
 <%
@@ -36,22 +55,27 @@
 <h1>checking...</h1>
 <% //본인 정보
 	//sql 순서가 들어가기 전에 체크를 해서 넘으면 내보내 에러랑 함께 내보내고 안 넘으면 받고,
-	sql = "SELECT COUNT(*), C_Max_Reserv_Num FROM CONSULTATION WHERE CNum = '"+CNum+"' GROUP BY CNum, C_Max_Reserv_Num";
+	sql = "SELECT COUNT(*), C_Max_Reserv_Num FROM CONSULTATION WHERE CNum = '"+ CNumIn[selectnum] +"' GROUP BY CNum, C_Max_Reserv_Num";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	rsmd = rs.getMetaData();
 	rs.next();
 	cnt = rsmd.getColumnCount();
 	String countMember = rs.getString(1);
+	//int countMember = rs.getInt(1);
 	String maxCount = rs.getString(2);
+	System.out.println("dd" + countMember + "dd" + maxCount);
 	rs.close();
 	pstmt.close();
-	if (Integer.parseInt(countMember) > Integer.parseInt(maxCount)) {
-		out.println("alert(\"This reservation is full reserved\");");
-		out.println("<nav><li><a href=\"main_student.jsp\">go back to main page</a></li></nav>");
+	if (Integer.parseInt(countMember) > Integer.parseInt(maxCount)){
+	//if (countMember > Integer.parseInt(maxCount)){	
+		out.println("<script>alert(\"This reservation is full reserved\");</script>");
+ 		response.sendRedirect("main_student.jsp");
+		//out.println("<nav><li><a href=\"main_student.jsp\">go back to main page</a></li></nav>");
 	}
 	else {
-		out.println("<nav><li><a href=\"insert_info_student.jsp\">please go to write a info</a></li></nav>");
+		response.sendRedirect("insert_info_student.jsp");
+		//out.println("<nav><li><a href=\"insert_info_student.jsp\">please go to write a info</a></li></nav>");
 	}
 	%>
 </body>

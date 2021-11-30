@@ -20,8 +20,8 @@
    String pass = "1234";
    String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
    Connection conn = null;
-   PreparedStatement pstmt,pstmt2;
-   ResultSet rs,rs2;
+   PreparedStatement pstmt,pstmt2,pstmt3;
+   ResultSet rs,rs2,rs3;
    String sql;
    int cnt;
    ResultSetMetaData rsmd;
@@ -30,7 +30,6 @@
 %>
 </head>
 <body>
-<button onclick="location.href='login.jsp'">Back to Login Page</button >
 	<header id="header">
 		<h1>CONSULTATION</h1>
 		<nav>
@@ -64,15 +63,20 @@
 		
 	<h2>Follow Professor Consultation</h2>
 	<%
-	//蹂댁�ъ＜怨� �띠�� ��蹂� 媛��몃�� �곗��硫� �⑸����!
-	//�뱀�� 紐곕�쇱�� �④꺼������ �닿굔 ������ 吏���援���媛� ���댁�� 媛��ㅽ������ 蹂댁�ъ＜�� 寃�����.
+	//보여주고 싶은 정보 가져다 쓰시면 됩니다!
+	//혹시 몰라서 남겨뒀는데 이건 자신의 지도교수가 상담을 개설했을때 보여주는 겁니다.
 	sql = "select consult_type, CProfName, CDate, CTime, Consult_Space, C_Max_Reserv_Num, CNum, CPId"
 			+ " FROM CONSULTATION"
 			+ " WHERE CPId = (SELECT TPId FROM FOLLOW_STUDENT WHERE TSId = '"+id+"')"
 			+ " AND CSId = '0000000000' AND CSUco = '"+uco+"'";
-
+	String sql3 = "select count(*) - 1, cnum"
+			+ " FROM CONSULTATION"
+			+ " WHERE CPId = (SELECT TPId FROM FOLLOW_STUDENT WHERE TSId = '"+id+"')"
+			+ " GROUP By CNum";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
+	pstmt3 = conn.prepareStatement(sql3);
+	rs3 = pstmt3.executeQuery();
 	rsmd = rs.getMetaData();
 	cnt = rsmd.getColumnCount();
 	
@@ -86,9 +90,10 @@
 	String[] CNum3 = new String[100];
 	String[] CPId3 = new String[100];
 	int i = 0;
+	String[] NowN = new String[100];
 	
 	StringTokenizer st;
-	while(rs.next()){
+	while(rs.next() && rs3.next()){
 		c3[i] = rs.getString(1);
 		p3[i] = rs.getString(2);
 		d3[i] = rs.getString(3);
@@ -99,6 +104,7 @@
 		m3[i] = rs.getInt(6);
 		CNum3[i] = rs.getString(7);
 		CPId3[i] = rs.getString(8);
+		NowN[i] = rs3.getString(1);
 		i++;
 	}
 	int total_cnt = i;
@@ -112,7 +118,7 @@
 	out.println("<th>date</th>");
 	out.println("<th>time</th>");
 	out.println("<th>place</th>");
-	out.println("<th>max participant number</th>");
+	out.println("<th>participant number</th>");
 	
 	for(i=1; i<=total_cnt; i++){
 		out.println("<tr>");
@@ -122,19 +128,21 @@
 		out.println("<td>" + d3[i-1] + "</td>");//Cdate
 		out.println("<td>" + t3[i-1] + "</td>");//ctime
 		out.println("<td>" + pl3[i-1] + "</td>");//consult_space
-		out.println("<td>" + m3[i-1] + "</td>");//c_max_reserv_num
+		out.println("<td>" + NowN[i-1] + "/" + m3[i-1] + "</td>");//c_max_reserv_num
 		out.println("</tr>");
 	}
 	out.println("</table>");
 	}
 	
 	rs.close();
+	rs3.close();
 	pstmt.close();
+	pstmt3.close();
 %>
 <h2>Course Professor Consultation</h2>
 <%
-	//蹂댁�ъ＜怨� �띠�� ��蹂� 媛��몃�� �곗��硫� �⑸����!
-	//������ ��媛����� 怨쇰ぉ�� 援������� ���댁�� 蹂댁�ъ�����.
+	//보여주고 싶은 정보 가져다 쓰시면 됩니다!
+	//자신이 수강하는 과목의 교수님의 상담을 보여줍니다.
 	sql = "select consult_type, CProfName, CDate, CTime, Consult_Space, C_Max_Reserv_Num, CNum, CPId"
 			+" FROM CONSULTATION"
 			+" WHERE CPId IN (SELECT DISTINCT CId FROM COURSE_REGISTRATION"
@@ -146,9 +154,21 @@
 			+"		 AND Role = 'p')"
 			+" AND CSId = '0000000000' AND CSUco = '"+uco+"'"
 			+" AND consult_type = 'COURSE'";
-
+	sql3 = "select count(*) - 1, cnum"
+		+ " FROM CONSULTATION"
+		+" WHERE CPId IN (SELECT DISTINCT CId FROM COURSE_REGISTRATION"
+		+"		 WHERE CRco IN (SELECT CRco FROM COURSE_REGISTRATION"
+		+"				 WHERE CId = '"+id+"')"
+		+"		 AND CRFco = (SELECT SFco FROM STUDENT"
+		+"				 WHERE SId = '"+id+"')"
+		+"		 AND CRUco = '"+uco+"'"
+		+"		 AND Role = 'p')"
+		+ " GROUP By CNum";
 	pstmt2 = conn.prepareStatement(sql);
 	rs2 = pstmt2.executeQuery();
+	pstmt3 = conn.prepareStatement(sql3);
+	rs3 = pstmt3.executeQuery();
+	
 	rsmd = rs2.getMetaData();
 	cnt = rsmd.getColumnCount();
 	
@@ -162,8 +182,9 @@
 	String[] CNum2 = new String[100];
 	String[] CPId2 = new String[100];
 	i = 0;
+	String[] NowC = new String[100];
 	
-	while(rs2.next()){
+	while(rs2.next() && rs3.next()){
 		c2[i] = rs2.getString(1);
 		p2[i] = rs2.getString(2);
 		d2[i] = rs2.getString(3);
@@ -174,6 +195,7 @@
 		m2[i] = rs2.getInt(6);
 		CNum2[i] = rs2.getString(7);
 		CPId2[i] = rs2.getString(8);
+		NowC[i] = rs3.getString(1);
 		i++;
 	}
 	total_cnt = i;
@@ -187,7 +209,7 @@
 		out.println("<th>date</th>");
 		out.println("<th>time</th>");
 		out.println("<th>place</th>");
-		out.println("<th>max participant number</th>");
+		out.println("<th>participant number</th>");
 	
 		for(i=1; i<=total_cnt; i++){
 			out.println("<tr>");
@@ -197,14 +219,16 @@
 			out.println("<td>" + d2[i-1] + "</td>");//Cdate
 			out.println("<td>" + t2[i-1] + "</td>");//ctime
 			out.println("<td>" + pl2[i-1] + "</td>");//consult_space
-			out.println("<td>" + m2[i-1] + "</td>");//c_max_reserv_num
+			out.println("<td>" + NowC[i-1] + "/" + m2[i-1] + "</td>");//c_max_reserv_num
 			out.println("</tr>");
 		}
 		out.println("</table>");
 	}
 	
 	rs2.close();
+	rs3.close();
 	pstmt2.close();
+	pstmt3.close();
 	//
 %>
 	</form>

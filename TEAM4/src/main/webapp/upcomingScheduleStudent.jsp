@@ -29,6 +29,8 @@
 %>
 </head>
 <body>
+<button onclick="location.href='mypage_student.jsp'">Back to MyPage</button >
+<h2>Upcoming Schedule</h2>
    <form name="form" action="update_consultation_student.jsp" method="post">
 <% 
    //Consult_type¿¡ µû¸¥ Äõ¸®

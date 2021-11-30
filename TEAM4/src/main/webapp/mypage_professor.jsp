@@ -7,6 +7,7 @@
 <title>Team4: Consultation</title>
 </head>
 <body>
+<button onclick="location.href='main_professor.jsp'">Back to Main Page</button >
 	<h2>MY PAGE</h2><br><br>
 		<!-- manage upcoming schedule and my account -->
 	<nav>

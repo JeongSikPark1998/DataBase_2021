@@ -41,7 +41,7 @@
 		<h1>CONSULTATION</h1>
 		<nav>
 		<ul>
-			<li><a href="mypage_professor.jsp">MY PAGE</a></li>
+			<li><a href="backend_seeMyProfile.jsp">MY PAGE</a></li>
 		</ul>
 		</nav>
 </header>

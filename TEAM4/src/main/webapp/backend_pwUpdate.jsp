@@ -43,9 +43,9 @@
 	}
 	else if (loginType.equals("PROFESSOR")) {
 		sql = "UPDATE PROFESSOR SET"
-				+" SPW = '"+pwUpdate+"' WHERE"
+				+" PPW = '"+pwUpdate+"' WHERE"
 				+" PId= '"+id+"'"
-				+" AND SUco = '"+uco+"'";
+				+" AND PUco = '"+uco+"'";
 	}
 	else {
 		sql = "";

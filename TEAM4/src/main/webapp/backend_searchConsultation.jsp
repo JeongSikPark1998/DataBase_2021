@@ -14,9 +14,6 @@
     String id = (String)session.getAttribute("id");
     String uco = (String)session.getAttribute("uco");
 
-    System.out.println(Consult_Type);
-
-    System.out.println(id);
     session.setAttribute("Consult_Type", Consult_Type);
 	session.setAttribute("CProfName", CProfName);
 %>
@@ -126,7 +123,6 @@
 	rs2 = pstmt2.executeQuery();
 	rsmd = rs.getMetaData();
 	cnt = rsmd.getColumnCount();
-	System.out.println(sql2);
 	
 	//store data
 	String[] c = new String[100];

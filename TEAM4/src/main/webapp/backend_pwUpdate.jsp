@@ -57,8 +57,14 @@
 	%>
 	<script>
 		alert('Password is changed.\nPress this button to go main page.');
-		document.location.href="main_student.jsp";
 	</script>
+	<%
+	if(loginType.equals("STUDENT")){%>
+	<script>document.location.href="main_student.jsp";</script>
+	<%}
+	else if(loginType.equals("PROFESSOR")){%>
+	<script>document.location.href="main_professor.jsp";</script>
+	<%}%>
 	<%
 	rs.close();
 	pstmt.close();

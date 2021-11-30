@@ -9,28 +9,17 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	//signUpConsultation 학생 상담 신청 - 동시성 제어
-	//String SId = request.getParameter("SId"); // 신청하는 본인 정보
 	String SId = (String)session.getAttribute("id");
-	//String Consult_Type = request.getParameter("Consult_Type");
 	String Consult_Type = (String)session.getAttribute("Consult_Type");
-	//String Consult_Space = request.getParameter("Consult_Space");
 	String Consult_Space = (String)session.getAttribute("Consult_Space");
-	//String C_Max_Reserv_Num = request.getParameter("C_Max_Reserv_Num");
 	int C_Max_Reserv_Num = (int)session.getAttribute("Max");
-	//String CTime = request.getParameter("CTime");
 	String CTime = (String)session.getAttribute("Consult_time");
-	//String CProfName = request.getParameter("CProfName");
 	String CProfName = (String)session.getAttribute("CProfName");
-	//String CDate = request.getParameter("CDate");
 	String CDate = (String)session.getAttribute("Consult_date");
-	//String CSUco = request.getParameter("CSUco");
 	String CSUco = (String)session.getAttribute("uco");
-    //나머지 정보들은 이전의 consultation block에서 가져오면 될 것이고
     String SFName = request.getParameter("Name");
     session.setAttribute("SFName", SFName);
-    //String CNum = request.getParameter("CNum");
     String CNum = (String)session.getAttribute("CNum");
-    //String CPId = request.getParameter("CPId");
     String CPId = (String)session.getAttribute("CPId");
 %>
 
@@ -59,7 +48,7 @@
 <% //본인 정보
 	//sql 순서가 들어가기 전에 체크를 해서 넘으면 내보내 에러랑 함께 내보내고 안 넘으면 받고,
 	conn.setAutoCommit(false);
-	String tr = "SELECT Cnum FROM CONSULTATION WHERE Cnum = '"+CNum+"' FOR UPDATE NOWAIT";
+	String tr = "LOCK TABLE CONSULTATION IN SHARE MODE";
 	trstmt = conn.prepareStatement(tr);
 	trstmt.executeQuery();
 	
@@ -73,7 +62,6 @@
 	rs.close();
 	pstmt.close();
 	if (Integer.parseInt(countMember) > Integer.parseInt(maxCount)) {
-		System.out.println("hello");
 		conn.commit();
 		%>
 		<script>
@@ -86,7 +74,6 @@
 %>
 
 <%  //CONSULTATION 삽입
-	//INSERT INTO CONSULTATION VALUES('FOLLOW', 'A7127', 4, '13:00 - 13:30', 'Arely', '0112', 'Jett', '2019171428', '2014135925', '2021-12-16', '11001');
 	StringTokenizer st = new StringTokenizer(CDate);
 	CDate = st.nextToken();
 	CDate = "to_date('"+CDate+"','YYYY-MM-DD')";
@@ -126,8 +113,6 @@
 	pstmt3 = conn.prepareStatement(sql);
 	pstmt3.executeQuery();
 	conn.commit(); //commit!!!
-	//등록을 마치면 main_student.jsp로 이동
-	//등록된 정보는 mypage의 upcoming schedule에서 확인 가능
 	response.sendRedirect("main_student.jsp");
 	pstmt3.close();
 %>

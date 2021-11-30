@@ -19,9 +19,9 @@
    String pass = "1234";
    String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
    Connection conn = null;
-   PreparedStatement pstmt;
-   ResultSet rs;
-   String sql;
+   PreparedStatement pstmt, pstmt2;
+   ResultSet rs, rs2;
+   String sql, sql2;
    int cnt;
    ResultSetMetaData rsmd;
    Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -34,10 +34,12 @@
    <form name="form" action="update_consultation_student.jsp" method="post">
 <% 
    //Consult_type¿¡ µû¸¥ Äõ¸®
-   sql = "SELECT consult_type, cprofname, cdate, ctime, consult_space, c_max_reserv_num, cnum, cpid from consultation where csid = '" + id + "'";
-   System.out.println(sql);
+   sql = "SELECT consult_type, cprofname, cdate, ctime, consult_space, c_max_reserv_num, cnum, cpid from consultation where csid = '" + id + "' order by cnum";
+   sql2 = "SELECT consult_content from consult_info where isid = '" + id + "' order by cicode";
    pstmt = conn.prepareStatement(sql);
+   pstmt2 = conn.prepareStatement(sql2);
    rs = pstmt.executeQuery();
+   rs2 = pstmt2.executeQuery();
    rsmd = rs.getMetaData();
    cnt = rsmd.getColumnCount();
    
@@ -50,10 +52,11 @@
    int[] m = new int[100];
    String[] CNum = new String[100];
    String[] CPId = new String[100];
+   String[] Content = new String[100];
    int i = 0;
    
    StringTokenizer st;
-   while(rs.next()){
+   while(rs.next() && rs2.next()){
       c[i] = rs.getString(1);
       p[i] = rs.getString(2);
       d[i] = rs.getString(3);
@@ -64,6 +67,7 @@
       m[i] = rs.getInt(6);
       CNum[i] = rs.getString(7);
       CPId[i] = rs.getString(8);
+      Content[i] = rs2.getString(1);
       i++;
    }
    int total_cnt = i;
@@ -89,6 +93,7 @@
       out.println("<td>" + pl[i] + "</td>");//consult_space
       out.println("<td>" + m[i] + "</td>");//c_max_reserv_num
       out.println("</tr>");
+      out.println("<tr><td colspan = 7>" + Content[i] +" </td></tr>");
    }
    out.println("</table>");
    

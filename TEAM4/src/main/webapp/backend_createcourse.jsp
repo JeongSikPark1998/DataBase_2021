@@ -39,7 +39,6 @@
 	String ICFCo = request.getParameter("ICFCo");
 	String uco = (String)session.getAttribute("uco2");
 	sql = "INSERT INTO COURSE VALUES('"+ICName+"', '" + ICCode + "', '" +ICFCo+"','"+uco+"')";
-	//sql = "INSERT INTO COURSE VALUES('"+ICName+"', (SELECT MAX(CCode) + 1 FROM COURSE WHERE CUCO = '" + uco + "' and CFCo = '" + ICFCo +"'), '" +ICFCo+"','"+uco+"')";
 	pstmt = conn.prepareStatement(sql);
 	try {
 		pstmt.executeQuery();

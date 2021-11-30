@@ -8,7 +8,6 @@
 <title>checking...</title>
 <%
 	request.setCharacterEncoding("UTF-8");
-	///////////
 	String[] c = (String[]) session.getAttribute("c");
 	String[] p = (String[]) session.getAttribute("p");
 	String[] d = (String[]) session.getAttribute("d");
@@ -17,7 +16,6 @@
 	int[] m = (int[]) session.getAttribute("m");
 	String[] CNumIn = (String[])session.getAttribute("CNumIn");
 	String[] CPIdIn = (String[])session.getAttribute("CPIdIn");
-	//int selectnumIn = (int)session.getAttribute("selectnum");
 	int selectnum = Integer.parseInt(request.getParameter("select_num"));
 	selectnum -= 1;
 	session.setAttribute("selectnum", selectnum);
@@ -62,7 +60,6 @@
 	rs.next();
 	cnt = rsmd.getColumnCount();
 	String countMember = rs.getString(1);
-	//int countMember = rs.getInt(1);
 	String maxCount = rs.getString(2);
 	rs.close();
 	pstmt.close();
@@ -72,7 +69,6 @@
 			document.location.href="main_student.jsp";
 			</script>
 		<%
-		//response.sendRedirect("main_student.jsp");
 	}
 	else {
 		response.sendRedirect("insert_info_student.jsp");

@@ -30,7 +30,7 @@
 		<!-- select role(occupation) by User (radio button) -->
 		<fieldset>
 			<legend>Login as</legend>
-			<input type="radio" name="loginType" id="PROFESSOR" value="PROFESSOR">
+			<input type="radio" name="loginType" id="PROFESSOR" value="PROFESSOR" checked = "checked">
 			<label for="PROFESSOR">PROFESSOR</label> 
 			<input type="radio" name="loginType" id="STUDENT" value="STUDENT"> 
 			<label for="STUDENT">STUDENT</label>

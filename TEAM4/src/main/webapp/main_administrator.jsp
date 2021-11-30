@@ -32,7 +32,7 @@
 	<header id="header">
 		<h1>Admin</h1>
 	</header>
-<%//�대�� ��援� 媛��� ��怨� 遺��ъ�ㅺ린
+<%//현재 있는 대학교 목록을 출력
 	sql = "SELECT * FROM UNIVERSITY ORDER BY UCODE";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();

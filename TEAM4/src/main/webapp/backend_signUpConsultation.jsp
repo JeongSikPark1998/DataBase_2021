@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 <%
 	request.setCharacterEncoding("UTF-8");
-	//signUpConsultation ÇÐ»ý »ó´ã ½ÅÃ» - µ¿½Ã¼º Á¦¾î
-	//String SId = request.getParameter("SId"); // ½ÅÃ»ÇÏ´Â º»ÀÎ Á¤º¸
+	//signUpConsultation í•™ìƒ ìƒë‹´ ì‹ ì²­ - ë™ì‹œì„± ì œì–´
+	//String SId = request.getParameter("SId"); // ì‹ ì²­í•˜ëŠ” ë³¸ì¸ ì •ë³´
 	String SId = (String)session.getAttribute("id");
 	//String Consult_Type = request.getParameter("Consult_Type");
 	String Consult_Type = (String)session.getAttribute("Consult_Type");
@@ -25,7 +25,7 @@
 	String CDate = (String)session.getAttribute("Consult_date");
 	//String CSUco = request.getParameter("CSUco");
 	String CSUco = (String)session.getAttribute("uco");
-    //³ª¸ÓÁö Á¤º¸µéÀº ÀÌÀüÀÇ consultation block¿¡¼­ °¡Á®¿À¸é µÉ °ÍÀÌ°í
+    //ë‚˜ë¨¸ì§€ ì •ë³´ë“¤ì€ ì´ì „ì˜ consultation blockì—ì„œ ê°€ì ¸ì˜¤ë©´ ë  ê²ƒì´ê³ 
     String SFName = request.getParameter("Name");
     session.setAttribute("SFName", SFName);
     //String CNum = request.getParameter("CNum");
@@ -43,6 +43,7 @@
    String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
    Connection conn = null;
    PreparedStatement pstmt,pstmt2,pstmt3;
+   PreparedStatement trstmt;
    ResultSet rs;
    String sql;
    int cnt;
@@ -55,8 +56,13 @@
 </head>
 <body>
 <h1>sign-up consultation</h1>
-<% //º»ÀÎ Á¤º¸
-	//sql ¼ø¼­°¡ µé¾î°¡±â Àü¿¡ Ã¼Å©¸¦ ÇØ¼­ ³ÑÀ¸¸é ³»º¸³» ¿¡·¯¶û ÇÔ²² ³»º¸³»°í ¾È ³ÑÀ¸¸é ¹Þ°í,
+<% //ë³¸ì¸ ì •ë³´
+	//sql ìˆœì„œê°€ ë“¤ì–´ê°€ê¸° ì „ì— ì²´í¬ë¥¼ í•´ì„œ ë„˜ìœ¼ë©´ ë‚´ë³´ë‚´ ì—ëŸ¬ëž‘ í•¨ê»˜ ë‚´ë³´ë‚´ê³  ì•ˆ ë„˜ìœ¼ë©´ ë°›ê³ ,
+	conn.setAutoCommit(false);
+	String tr = "SELECT Cnum FROM CONSULTATION WHERE Cnum = '"+CNum+"' FOR UPDATE";
+	trstmt = conn.prepareStatement(tr);
+	trstmt.executeQuery();
+	
 	sql = "SELECT COUNT(*), C_Max_Reserv_Num FROM CONSULTATION WHERE CNum = '"+CNum+"' GROUP BY CNum, C_Max_Reserv_Num";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
@@ -72,7 +78,7 @@
 	}
 %>
 
-<%  //CONSULTATION »ðÀÔ
+<%  //CONSULTATION ì‚½ìž…
 	//INSERT INTO CONSULTATION VALUES('FOLLOW', 'A7127', 4, '13:00 - 13:30', 'Arely', '0112', 'Jett', '2019171428', '2014135925', '2021-12-16', '11001');
 	StringTokenizer st = new StringTokenizer(CDate);
 	CDate = st.nextToken();
@@ -86,17 +92,18 @@
 			+CDate+", '"+CSUco+"')";
 	pstmt2 = conn.prepareStatement(sql);	
 	pstmt2.executeQuery();
+	conn.commit();
 	pstmt2.close();
 %>
 
 <%
-	//½ÅÃ» form¿¡¼­ ¹Þ¾Æ¿Ã Á¤º¸µé
+	//ì‹ ì²­ formì—ì„œ ë°›ì•„ì˜¬ ì •ë³´ë“¤
 	String grade = request.getParameter("Grade");
 	int age = Integer.parseInt(request.getParameter("age"));
 	double GPA = Double.parseDouble(request.getParameter("GPA"));
 	String military = request.getParameter("m_served");
 	String content = request.getParameter("content");
-	//session¿¡ ½ÅÃ» form Á¤º¸ µî·Ï
+	//sessionì— ì‹ ì²­ form ì •ë³´ ë“±ë¡
 	session.setAttribute("grade", grade);
 	session.setAttribute("age", age);
 	session.setAttribute("GPA", GPA);
@@ -104,7 +111,7 @@
 	session.setAttribute("content", content);
 %>
 
-<%  //CONSULT_INFO »ðÀÔ
+<%  //CONSULT_INFO ì‚½ìž…
 	sql = "INSERT INTO CONSULT_INFO VALUES('"+CNum+"', '"
 			+SFName+"', "+grade+", "+GPA+", "
 			+age+", '"+military+"', '"+content+"', '"
@@ -112,8 +119,8 @@
 	pstmt3 = conn.prepareStatement(sql);
 	pstmt3.executeQuery();
 	conn.commit(); //commit!!!
-	//µî·ÏÀ» ¸¶Ä¡¸é main_student.jsp·Î ÀÌµ¿
-	//µî·ÏµÈ Á¤º¸´Â mypageÀÇ upcoming schedule¿¡¼­ È®ÀÎ °¡´É
+	//ë“±ë¡ì„ ë§ˆì¹˜ë©´ main_student.jspë¡œ ì´ë™
+	//ë“±ë¡ëœ ì •ë³´ëŠ” mypageì˜ upcoming scheduleì—ì„œ í™•ì¸ ê°€ëŠ¥
 	response.sendRedirect("main_student.jsp");
 	pstmt3.close();
 %>

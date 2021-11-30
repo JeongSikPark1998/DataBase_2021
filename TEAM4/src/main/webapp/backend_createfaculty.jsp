@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>Modify Faculty and Course</title>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -33,16 +33,30 @@
 
 <%
 	//새로운 학과 추가
+	int flag = 0;
 	conn.setAutoCommit(false);
 	String FName = request.getParameter("FName");
 	String IFCo = request.getParameter("FCo");
 	String uco = (String)session.getAttribute("uco2");
 	sql = "INSERT INTO FACULTY VALUES('"+FName+"','"+IFCo+"', '" + uco + "')";
 	pstmt = conn.prepareStatement(sql);
-	rs = pstmt.executeQuery();	
-	conn.commit();
-	response.sendRedirect("backend_adminSeeFacultyAndCourse.jsp");
-	rs.close();
+	
+	try {
+		pstmt.executeQuery();
+	} catch (Exception e) {
+		flag = 1;
+		%>
+		   <script>
+		      alert('There is a problem.\nPress this button to go main page.');
+		      document.location.href="backend_adminSeeFacultyAndCourse.jsp";
+		   </script>
+		<%
+	}
+	if (flag == 0) {
+		conn.commit();
+		response.sendRedirect("backend_adminSeeFacultyAndCourse.jsp");
+		pstmt.close();
+	}
 	pstmt.close();
 %>
 

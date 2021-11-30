@@ -41,7 +41,12 @@
 	pstmt.executeQuery();
 	
 	conn.commit();
-	response.sendRedirect("main_professor.jsp");
+	%>
+	   <script>
+	      alert('Consultation is Done or Deleted.\nPlease press the button to go main page.');
+	      document.location.href="main_professor.jsp";
+	   </script>
+	<%
 	pstmt.close();
 		
 %>

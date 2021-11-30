@@ -47,10 +47,14 @@
 	conn.setAutoCommit(false);
 	sql = "INSERT INTO CONSULTATION VALUES('"+Consult_Type +"', '"+Consult_Space +"', "+C_Max_Reserv_Num+", '"+CTime+"', '"+pname+"', "+"(SELECT MAX(CNum) + 1 FROM CONSULTATION)"+", NULL, DEFAULT, '"+ pid +"', '"+ CDate +"', '"+ puco +"')";
 	pstmt = conn.prepareStatement(sql);
-	rs = pstmt.executeQuery();
+	pstmt.executeQuery();
 	conn.commit(); //commit!!!
-	response.sendRedirect("main_professor.jsp");
-	rs.close();
+	%>
+	   <script>
+	      alert('Consultation is created.\nPlease press the button to go main page.');
+	      document.location.href="main_professor.jsp";
+	   </script>
+	<%
 	pstmt.close();
 %>
 

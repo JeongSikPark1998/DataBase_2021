@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>Modify Faculty and Course</title>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -35,7 +35,7 @@
 
 </head>
 <body>
-
+<button onclick="location.href='main_administrator.jsp'">Back to Main Page</button >
 <%//해당 학교 개설 학과 불러오기
 	sql = "SELECT * FROM FACULTY WHERE FUco = '"+uco+"'";
 	pstmt = conn.prepareStatement(sql);

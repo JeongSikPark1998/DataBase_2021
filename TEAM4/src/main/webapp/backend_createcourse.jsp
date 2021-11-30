@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>Modify Faculty and Course</title>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -32,6 +32,7 @@
 <body>
 
 <%	//새로운 과목 추가 개설
+	int flag = 0;
 	conn.setAutoCommit(false);
 	String ICName = request.getParameter("ICName");
 	String ICCode = request.getParameter("ICCode");
@@ -40,14 +41,22 @@
 	sql = "INSERT INTO COURSE VALUES('"+ICName+"', '" + ICCode + "', '" +ICFCo+"','"+uco+"')";
 	//sql = "INSERT INTO COURSE VALUES('"+ICName+"', (SELECT MAX(CCode) + 1 FROM COURSE WHERE CUCO = '" + uco + "' and CFCo = '" + ICFCo +"'), '" +ICFCo+"','"+uco+"')";
 	pstmt = conn.prepareStatement(sql);
-	rs = pstmt.executeQuery();
-	conn.commit();
-	response.sendRedirect("backend_adminSeeFacultyAndCourse.jsp");
-	rs.close();
-	pstmt.close();
-	
-
-	pstmt.close();
+	try {
+		pstmt.executeQuery();
+	} catch (Exception e) {
+		flag = 1;
+		%>
+		   <script>
+		      alert('There is a problem.\nPress this button to go main page.');
+		      document.location.href="backend_adminSeeFacultyAndCourse.jsp";
+		   </script>
+		<%
+	}
+	if (flag == 0) {
+		conn.commit();
+		response.sendRedirect("backend_adminSeeFacultyAndCourse.jsp");
+		pstmt.close();
+	}
 %>
 
 

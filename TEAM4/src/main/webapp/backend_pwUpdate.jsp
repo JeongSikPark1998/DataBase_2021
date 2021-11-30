@@ -54,7 +54,12 @@
 	rs = pstmt.executeQuery();
 	conn.setAutoCommit(false);
 	conn.commit();
-	response.sendRedirect("main_student.jsp");
+	%>
+	<script>
+		alert('Password is changed.\nPress this button to go main page.');
+		document.location.href="main_student.jsp";
+	</script>
+	<%
 	rs.close();
 	pstmt.close();
 %>

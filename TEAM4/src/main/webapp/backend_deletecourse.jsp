@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>Modify Faculty and Course</title>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -44,7 +44,5 @@
 	response.sendRedirect("backend_adminSeeFacultyAndCourse.jsp");
 	pstmt.close();	
 %>
-
-
 </body>
 </html>

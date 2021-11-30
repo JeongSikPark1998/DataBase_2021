@@ -28,10 +28,11 @@
 %>
 </head>
 <body>
+<button onclick="location.href='login.jsp'">Back to Login Page</button >
 	<header id="header">
 		<h1>Admin</h1>
 	</header>
-<%//해당 학교 개설 학과 불러오기
+<%//�대�� ��援� 媛��� ��怨� 遺��ъ�ㅺ린
 	sql = "SELECT * FROM UNIVERSITY ORDER BY UCODE";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();

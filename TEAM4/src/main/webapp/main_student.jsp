@@ -30,6 +30,7 @@
 %>
 </head>
 <body>
+<button onclick="location.href='login.jsp'">Back to Login Page</button >
 	<header id="header">
 		<h1>CONSULTATION</h1>
 		<nav>
@@ -63,8 +64,8 @@
 		
 	<h2>Follow Professor Consultation</h2>
 	<%
-	//보여주고 싶은 정보 가져다 쓰시면 됩니다!
-	//혹시 몰라서 남겨뒀는데 이건 자신의 지도교수가 상담을 개설했을때 보여주는 겁니다.
+	//蹂댁�ъ＜怨� �띠�� ��蹂� 媛��몃�� �곗��硫� �⑸����!
+	//�뱀�� 紐곕�쇱�� �④꺼������ �닿굔 ������ 吏���援���媛� ���댁�� 媛��ㅽ������ 蹂댁�ъ＜�� 寃�����.
 	sql = "select consult_type, CProfName, CDate, CTime, Consult_Space, C_Max_Reserv_Num, CNum, CPId"
 			+ " FROM CONSULTATION"
 			+ " WHERE CPId = (SELECT TPId FROM FOLLOW_STUDENT WHERE TSId = '"+id+"')"
@@ -132,8 +133,8 @@
 %>
 <h2>Course Professor Consultation</h2>
 <%
-	//보여주고 싶은 정보 가져다 쓰시면 됩니다!
-	//자신이 수강하는 과목의 교수님의 상담을 보여줍니다.
+	//蹂댁�ъ＜怨� �띠�� ��蹂� 媛��몃�� �곗��硫� �⑸����!
+	//������ ��媛����� 怨쇰ぉ�� 援������� ���댁�� 蹂댁�ъ�����.
 	sql = "select consult_type, CProfName, CDate, CTime, Consult_Space, C_Max_Reserv_Num, CNum, CPId"
 			+" FROM CONSULTATION"
 			+" WHERE CPId IN (SELECT DISTINCT CId FROM COURSE_REGISTRATION"

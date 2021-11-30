@@ -81,6 +81,12 @@
 	}
 	else {
 		//login ½ÇÆÐ
+		%>
+   		<script>
+     		 alert('ID / Password is wrong!!\nPlease Check Again.');
+     		 document.location.href="login.jsp";
+   		</script>
+   		<%
 		System.out.println("failed");
 	}
 	rs.close();

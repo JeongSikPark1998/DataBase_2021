@@ -9,8 +9,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String Consult_Type = request.getParameter("Consult_Type");
-    String CProfName = request.getParameter("CProfName"); //교수 이름
-    //String id = request.getParameter("id"); //학생 아이디
+    String CProfName = request.getParameter("CProfName"); //援��� �대�
+    //String id = request.getParameter("id"); //���� ���대��
     String id = (String)session.getAttribute("id");
     String uco = (String)session.getAttribute("uco");
 
@@ -41,7 +41,7 @@
 <body>
 	<form name="form" action="consultAvailableCheck.jsp" method="post">
 <% 
-	//Consult_type에 따른 쿼리
+	//Consult_type�� �곕Ⅸ 荑쇰━
 	if (Consult_Type.equals("COURSE")) {
 		sql = "select C.consult_type, C.CProfName, C.CDate, C.CTime, C.Consult_Space, C.C_Max_Reserv_Num, C.CNum, C.CPId "
 				+ "from consultation C "
@@ -58,7 +58,7 @@
 				+ "and C.CSId = '0000000000' "
 				+ "and C.consult_type = 'COURSE'";
 	}
-	else if (Consult_Type.equals("FOLLOW")) {//학생이 지도교수를 맞게 신청하면 보임
+	else if (Consult_Type.equals("FOLLOW")) {//������ 吏���援���瑜� 留�寃� ��泥���硫� 蹂댁��
 		sql = "select C.consult_type, C.CProfName, C.CDate, C.CTime, C.Consult_Space, C.C_Max_Reserv_Num, C.CNum, C.CPId "
 			+ "from consultation C, follow_student "
 			+ "where tpid = cpid and tsid = csid "
@@ -136,7 +136,7 @@
 	out.println("</table>");
 	
 	//select consultation number
-	out.println("<br><label for=\"select_num\">상담 선택</label>");
+	out.println("<br><label for=\"select_num\">Apply</label>");
 	out.println("<select name = \"select_num\" id=\"select_num\">");
 	for(i=1; i<total_cnt+1; i++){
 		out.println("<option value = \"" + i +"\">"+ i +"</option>");
@@ -148,7 +148,7 @@
 	out.println("<input type=\"submit\" value=\"apply\"></div>");
 
 	//session enroll
-	//배열 전체를 attribute로 등록함.
+	//諛곗�� ��泥대�� attribute濡� �깅���.
 	session.setAttribute("c", c);
 	session.setAttribute("p", p);
 	session.setAttribute("d", d);

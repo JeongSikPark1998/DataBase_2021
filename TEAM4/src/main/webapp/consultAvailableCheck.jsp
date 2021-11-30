@@ -64,18 +64,18 @@
 	String countMember = rs.getString(1);
 	//int countMember = rs.getInt(1);
 	String maxCount = rs.getString(2);
-	System.out.println("dd" + countMember + "dd" + maxCount);
 	rs.close();
 	pstmt.close();
 	if (Integer.parseInt(countMember) > Integer.parseInt(maxCount)){
-	//if (countMember > Integer.parseInt(maxCount)){	
-		out.println("<script>alert(\"This reservation is full reserved\");</script>");
- 		response.sendRedirect("main_student.jsp");
-		//out.println("<nav><li><a href=\"main_student.jsp\">go back to main page</a></li></nav>");
+		%><script>
+			alert('This reservation is full reserved');
+			document.location.href="main_student.jsp";
+			</script>
+		<%
+		//response.sendRedirect("main_student.jsp");
 	}
 	else {
 		response.sendRedirect("insert_info_student.jsp");
-		//out.println("<nav><li><a href=\"insert_info_student.jsp\">please go to write a info</a></li></nav>");
 	}
 	%>
 </body>

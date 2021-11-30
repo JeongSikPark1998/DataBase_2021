@@ -29,7 +29,7 @@
     String SFName = request.getParameter("Name");
     session.setAttribute("SFName", SFName);
     //String CNum = request.getParameter("CNum");
-    String CNum = (String)session.getAttribute("CNum21");
+    String CNum = (String)session.getAttribute("CNum");
     //String CPId = request.getParameter("CPId");
     String CPId = (String)session.getAttribute("CPId");
 %>
@@ -62,7 +62,6 @@
 	rs = pstmt.executeQuery();
 	rsmd = rs.getMetaData();
 	rs.next();
-	cnt = rsmd.getColumnCount();
 	String countMember = rs.getString(1);
 	String maxCount = rs.getString(2);
 	rs.close();

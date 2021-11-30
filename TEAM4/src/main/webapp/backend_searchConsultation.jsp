@@ -39,7 +39,7 @@
 %>
 </head>
 <body>
-	<form name="form" action="insert_info_student.jsp" method="post">
+	<form name="form" action="consultAvailableCheck.jsp" method="post">
 <% 
 	//Consult_type¿¡ µû¸¥ Äõ¸®
 	if (Consult_Type.equals("COURSE")) {
@@ -152,8 +152,8 @@
 	session.setAttribute("t", t);
 	session.setAttribute("pl", pl);
 	session.setAttribute("m", m);
-	session.setAttribute("CNum", CNum);
-	session.setAttribute("CPId", CPId);
+	session.setAttribute("CNumIn", CNum);
+	session.setAttribute("CPIdIn", CPId);
 	
 	rs.close();
 	pstmt.close();

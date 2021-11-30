@@ -8,26 +8,25 @@
 <meta charset="EUC-KR">
 <title>Team4: Consultation</title>
 <%
-String[] c = (String[]) session.getAttribute("c");
-String[] p = (String[]) session.getAttribute("p");
-String[] d = (String[]) session.getAttribute("d");
-String[] t = (String[]) session.getAttribute("t");
-String[] pl = (String[]) session.getAttribute("pl");
-int[] m = (int[]) session.getAttribute("m");
-String[] CNum = (String[])session.getAttribute("CNum");
-String[] CPId = (String[])session.getAttribute("CPId");
-int selectnum = Integer.parseInt(request.getParameter("select_num"));
-selectnum -= 1;
-session.setAttribute("selectnum", selectnum);
-//Consult_Type는 이미 지정 완료
-//CProfName는 이미 지정 완료
-session.setAttribute("Consult_date", d[selectnum]);
-session.setAttribute("Consult_time", t[selectnum]);
-session.setAttribute("Consult_Space", pl[selectnum]);
-session.setAttribute("Max", m[selectnum]);
-//이후에 사용할 것들
-session.setAttribute("CNum", CNum[selectnum]);
-session.setAttribute("CPId", CPId[selectnum]);
+	String[] c = (String[]) session.getAttribute("c");
+	String[] p = (String[]) session.getAttribute("p");
+	String[] d = (String[]) session.getAttribute("d");
+	String[] t = (String[]) session.getAttribute("t");
+	String[] pl = (String[]) session.getAttribute("pl");
+	int[] m = (int[]) session.getAttribute("m");
+	String[] CNumIn = (String[])session.getAttribute("CNumIn");
+	String[] CPIdIn = (String[])session.getAttribute("CPIdIn");
+	int selectnumIn = (int)session.getAttribute("selectnumIn");
+	selectnumIn -= 1;
+	//Consult_Type는 이미 지정 완료
+	//CProfName는 이미 지정 완료
+	session.setAttribute("Consult_date", d[selectnumIn]);
+	session.setAttribute("Consult_time", t[selectnumIn]);
+	session.setAttribute("Consult_Space", pl[selectnumIn]);
+	session.setAttribute("Max", m[selectnumIn]);
+	//이후에 사용할 것들
+	session.setAttribute("CNum", CNumIn[selectnumIn]);
+	session.setAttribute("CPId", CPIdIn[selectnumIn]);
 %>
 </head>
 <body>

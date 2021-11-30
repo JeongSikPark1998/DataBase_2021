@@ -55,23 +55,6 @@
 </head>
 <body>
 <h1>sign-up consultation</h1>
-<% //본인 정보
-	//sql 순서가 들어가기 전에 체크를 해서 넘으면 내보내 에러랑 함께 내보내고 안 넘으면 받고,
-	sql = "SELECT COUNT(*), C_Max_Reserv_Num FROM CONSULTATION WHERE CNum = '"+CNum+"' GROUP BY CNum, C_Max_Reserv_Num";
-	pstmt = conn.prepareStatement(sql);
-	rs = pstmt.executeQuery();
-	rsmd = rs.getMetaData();
-	rs.next();
-	cnt = rsmd.getColumnCount();
-	String countMember = rs.getString(1);
-	int maxCount = rs.getInt(2);
-	if (Integer.parseInt(countMember) > maxCount) {
-		//신청 불가!! 알림 띄우면서 alert() 보내면서, 페이지 안 보이게 하거나, 이전 페이지로 강제로 보내면 될 듯요!
-	}
-	rs.close();
-	pstmt.close();
-%>
-
 <%  //CONSULTATION 삽입
 	//INSERT INTO CONSULTATION VALUES('FOLLOW', 'A7127', 4, '13:00 - 13:30', 'Arely', '0112', 'Jett', '2019171428', '2014135925', '2021-12-16', '11001');
 	StringTokenizer st = new StringTokenizer(CDate);
@@ -87,11 +70,10 @@
 	pstmt2 = conn.prepareStatement(sql);
 	try {
 		pstmt2.executeQuery();
-	} catch (Exception e) { //나중에 찾아보기
+	} catch (Exception e) {
 		out.println("alert(\"You already reserved this consultation\");");
 		out.println("<nav><li><a href=\"main_student.jsp\">go back to main page</a></li></nav>");
 	}
-	conn.commit(); //commit!!!
 	pstmt2.close();
 %>
 

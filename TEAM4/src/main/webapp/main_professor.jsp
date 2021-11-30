@@ -115,6 +115,7 @@
 		out.println("<td>" + rs2.getInt(1) + " / " + max_r +"</td>");
 		out.println("</tr>");
 		if(rs2.getInt(1) == 0) {
+			System.out.println("hello");
 			out.println("</table><br></br>");
 			continue;
 		}
@@ -136,10 +137,10 @@
 				out.println("<td>" + rs3.getString(6)+"</td>");
 				out.println("<td>" + rs3.getString(7)+"</td></tr>");
 			}
+			out.println("</table><br></br>");
 			rs3.close();
 			pstmt3.close();
 		}
-		out.println("</table><br></br>");
 	}
 	session.setAttribute("pname", pname);
 	rsmd = null;

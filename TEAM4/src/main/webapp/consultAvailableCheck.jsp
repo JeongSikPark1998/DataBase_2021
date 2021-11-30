@@ -10,7 +10,7 @@
 	request.setCharacterEncoding("UTF-8");
     String CNum = (String)session.getAttribute("CNum21");
 	int selectnumIn = Integer.parseInt(request.getParameter("select_num"));
-	session.setAttribute("selectnumIn", selectnumIn);
+	session.setAttribute("selectnum", selectnumIn);
 %>
 
 <%
@@ -53,6 +53,6 @@
 	else {
 		out.println("<nav><li><a href=\"insert_info_student.jsp\">please go to write a info</a></li></nav>");
 	}
-	%>
+%>
 </body>
 </html>

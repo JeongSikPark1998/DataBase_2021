@@ -16,7 +16,7 @@
 	int[] m = (int[]) session.getAttribute("m");
 	String[] CNumIn = (String[])session.getAttribute("CNumIn");
 	String[] CPIdIn = (String[])session.getAttribute("CPIdIn");
-	int selectnumIn = (int)session.getAttribute("selectnumIn");
+	int selectnumIn = (int)session.getAttribute("selectnum");
 	selectnumIn -= 1;
 	//Consult_Type는 이미 지정 완료
 	//CProfName는 이미 지정 완료

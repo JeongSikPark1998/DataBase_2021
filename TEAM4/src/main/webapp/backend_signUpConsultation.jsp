@@ -68,6 +68,7 @@
 	rs.close();
 	pstmt.close();
 	if (Integer.parseInt(countMember) > Integer.parseInt(maxCount)) {
+		System.out.println("eerrrrorr");
 		%><jsp:forward page="main_student.jsp"/><%
 	}
 %>

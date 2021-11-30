@@ -67,7 +67,6 @@
 	rs.next();
 	if (rs.getRow() >= 1) {
 		//login ¼º°ø
-		System.out.println("success");
 		if(loginType.equals("STUDENT")){
 			dispatcher = request.getRequestDispatcher("main_student.jsp");
 		}
@@ -87,7 +86,6 @@
      		 document.location.href="login.jsp";
    		</script>
    		<%
-		System.out.println("failed");
 	}
 	rs.close();
 	pstmt.close();

@@ -8,6 +8,7 @@
 <title>checking...</title>
 <%
 	request.setCharacterEncoding("UTF-8");
+<<<<<<< HEAD
 	///////////
 	String[] c = (String[]) session.getAttribute("c");
 	String[] p = (String[]) session.getAttribute("p");
@@ -30,6 +31,11 @@
 	//이후에 사용할 것들
 	session.setAttribute("CNum", CNumIn[selectnum]);
 	session.setAttribute("CPId", CPIdIn[selectnum]);
+=======
+    String CNum = (String)session.getAttribute("CNum21");
+	int selectnumIn = Integer.parseInt(request.getParameter("select_num"));
+	session.setAttribute("selectnum", selectnumIn);
+>>>>>>> cee03a937e2dace813fb5c600d39179335d0bcb4
 %>
 
 <%
@@ -77,6 +83,6 @@
 		response.sendRedirect("insert_info_student.jsp");
 		//out.println("<nav><li><a href=\"insert_info_student.jsp\">please go to write a info</a></li></nav>");
 	}
-	%>
+%>
 </body>
 </html>

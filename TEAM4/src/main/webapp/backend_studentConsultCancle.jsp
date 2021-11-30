@@ -42,7 +42,12 @@
 	//완료 출력?
 	conn.setAutoCommit(false);
 	conn.commit();
-	response.sendRedirect("main_student.jsp");
+	%>
+	<script>
+		alert('This reservation is Deleted Successfully.');
+		document.location.href="main_student.jsp";
+	</script>
+	<%
 	rs.close();
 	pstmt.close();
 %>

@@ -9,8 +9,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String Consult_Type = request.getParameter("Consult_Type");
-    String CProfName = request.getParameter("CProfName"); //±³¼ö ÀÌ¸§
-    //String id = request.getParameter("id"); //ÇÐ»ý ¾ÆÀÌµð
+    String CProfName = request.getParameter("CProfName"); //êµìˆ˜ ì´ë¦„
+    //String id = request.getParameter("id"); //í•™ìƒ ì•„ì´ë””
     String id = (String)session.getAttribute("id");
     String uco = (String)session.getAttribute("uco");
 
@@ -38,10 +38,12 @@
    conn = DriverManager.getConnection(url, user, pass);
 %>
 </head>
+<button onclick="location.href='main_student.jsp'">Back to Main Page</button >
+<h2>Consultation list</h2>
 <body>
 	<form name="form" action="consultAvailableCheck.jsp" method="post">
 <% 
-	//Consult_type¿¡ µû¸¥ Äõ¸®
+	//Consult_typeì— ë”°ë¥¸ ì¿¼ë¦¬
 	if (Consult_Type.equals("COURSE")) {
 		sql = "select C.consult_type, C.CProfName, C.CDate, C.CTime, C.Consult_Space, C.C_Max_Reserv_Num, C.CNum, C.CPId "
 				+ "from consultation C "
@@ -57,7 +59,8 @@
 				+"		 AND CRUco = '"+uco+"'"
 				+"		 AND Role = 'p') "
 				+ "and C.CSId = '0000000000' "
-				+ "and C.consult_type = 'COURSE'";
+				+ "and C.consult_type = 'COURSE'"
+				+ " ORDER BY C.Cnum";
 		sql2 = "select count(*) - 1, cnum "
 				+ "from consultation C "
 				+ "where cprofname = '" + CProfName + "' "
@@ -72,9 +75,10 @@
 				+"		 AND CRUco = '"+uco+"'"
 				+"		 AND Role = 'p') "
 				+ "and C.consult_type = 'COURSE' "
-				+ "GROUP BY C.CNum";
+				+ "GROUP BY C.CNum"
+				+ " ORDER BY C.Cnum";
 	}
-	else if (Consult_Type.equals("FOLLOW")) {//ÇÐ»ýÀÌ Áöµµ±³¼ö¸¦ ¸Â°Ô ½ÅÃ»ÇÏ¸é º¸ÀÓ
+	else if (Consult_Type.equals("FOLLOW")) {//í•™ìƒì´ ì§€ë„êµìˆ˜ë¥¼ ë§žê²Œ ì‹ ì²­í•˜ë©´ ë³´ìž„
 		sql = "select C.consult_type, C.CProfName, C.CDate, C.CTime, C.Consult_Space, C.C_Max_Reserv_Num, C.CNum, C.CPId "
 			+ "from consultation C, follow_student "
 			+ "where tpid = cpid and tsid = '"+id +"' "
@@ -83,7 +87,8 @@
 			+				"where cnum = C.cnum "
 			+				"group by cnum) "
 			+ "and C.CSId = '0000000000' "
-			+ "and C.consult_type = 'FOLLOW'";
+			+ "and C.consult_type = 'FOLLOW'"
+			+ " ORDER BY C.Cnum";
 		sql2 = "select count(*) - 1,cnum "
 				+ "from consultation C, follow_student "
 				+ "where tpid = cpid and tsid = '"+id +"' "
@@ -92,7 +97,8 @@
 				+				"where cnum = C.cnum "
 				+				"group by cnum) "
 				+ "and C.consult_type = 'FOLLOW' "
-				+ "GROUP BY C.Cnum";
+				+ "GROUP BY C.Cnum"
+				+ " ORDER BY C.Cnum";
 	}
 	else {
 		sql = "select C.consult_type, C.CProfName, C.CDate, C.CTime, C.Consult_Space, C.C_Max_Reserv_Num, C.CNum, C.CPId  "
@@ -102,7 +108,8 @@
 				+				"where cnum = C.cnum "
 				+				"group by cnum)"
 				+ "and C.CSId = '0000000000' "
-				+ "and C.consult_type = 'GENERAL'";
+				+ "and C.consult_type = 'GENERAL'"
+				+ " ORDER BY C.Cnum";
 		sql2 = "select (count(*) - 1),cnum "
 				+ "from consultation C "
 				+ "where cprofname = '" + CProfName + "' "
@@ -110,7 +117,8 @@
 				+				"where cnum = C.cnum "
 				+				"group by cnum) "
 				+ "and C.consult_type = 'GENERAL' "
-				+ "GROUP BY C.Cnum";
+				+ "GROUP BY C.Cnum"
+				+ " ORDER BY C.Cnum";
 	}
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
@@ -147,6 +155,7 @@
 		Now[i] = rs2.getString(1);
 		i++;
 	}
+	System.out.println(sql2);
 	int total_cnt = i;
 	
 	//print
@@ -173,7 +182,7 @@
 	out.println("</table>");
 	
 	//select consultation number
-	out.println("<br><label for=\"select_num\">»ó´ã ¼±ÅÃ</label>");
+	out.println("<br><label for=\"select_num\">Apply</label>");
 	out.println("<select name = \"select_num\" id=\"select_num\">");
 	for(i=1; i<total_cnt+1; i++){
 		out.println("<option value = \"" + i +"\">"+ i +"</option>");
@@ -185,7 +194,6 @@
 	out.println("<input type=\"submit\" value=\"apply\"></div>");
 
 	//session enroll
-	//¹è¿­ ÀüÃ¼¸¦ attribute·Î µî·ÏÇÔ.
 	session.setAttribute("c", c);
 	session.setAttribute("p", p);
 	session.setAttribute("d", d);

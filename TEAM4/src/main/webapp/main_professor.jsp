@@ -24,9 +24,11 @@
 	PreparedStatement pstmt;
 	PreparedStatement pstmt2;
 	PreparedStatement pstmt3;
+	PreparedStatement pstmt4;
 	ResultSet rs;
 	ResultSet rs2;
 	ResultSet rs3;
+	ResultSet rs4;
 	String sql;
 	int cnt;
 	ResultSetMetaData rsmd;
@@ -83,17 +85,22 @@
 
 <%
 	sql = "SELECT * FROM CONSULTATION WHERE CSUco = '"+puco+"' and CPId = '" +pid+ "' and CSId = '0000000000' ORDER BY Cnum";
-	String sql2 = "SELECT COUNT(*) - 1 FROM CONSULTATION WHERE CSUco = '"+puco+"' and CPId = '" +pid+ "' GROUP BY Cnum";
-	
+	String sql2 = "SELECT COUNT(*) - 1 FROM CONSULTATION WHERE CSUco = '"+puco+"' and CPId = '" +pid+ "' GROUP BY Cnum ORDER BY CNum";
+	String sql4 = "SELECT PLName FROM PROFESSOR WHERE PId = '"+pid+"'";
 	pstmt = conn.prepareStatement(sql);
 	pstmt2 = conn.prepareStatement(sql2);
+	pstmt4 = conn.prepareStatement(sql4);
 	
 	rs = pstmt.executeQuery();
 	rs2 = pstmt2.executeQuery();
+	rs4 = pstmt4.executeQuery();
+	rs4.next();
+	
+	String pname = (String)rs4.getString(1);
+	session.setAttribute("pname", pname);
 	
 	out.println("<h3>Scheduled Consultation</h3>");
 	
-	String pname = "";
 	while(rs.next() && rs2.next()){
 		out.println("<table border=\"1\">");
 		out.println("<th>CNum</th>");
@@ -102,7 +109,6 @@
 		out.println("<th>Consult_Date</th>");
 		out.println("<th>Consult_Time</th>");
 		out.println("<th>Reserv_Number</th>");
-		pname = (String)rs.getString(9);
 		out.println("<tr>");
 		out.println("<td>" + rs.getString(6)+"</td>");
 		out.println("<td>" + rs.getString(1)+"</td>");
@@ -142,7 +148,7 @@
 			pstmt3.close();
 		}
 	}
-	session.setAttribute("pname", pname);
+	
 	rsmd = null;
 	rs.close();
 	rs2.close();

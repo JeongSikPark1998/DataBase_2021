@@ -59,7 +59,7 @@
 <% //본인 정보
 	//sql 순서가 들어가기 전에 체크를 해서 넘으면 내보내 에러랑 함께 내보내고 안 넘으면 받고,
 	conn.setAutoCommit(false);
-	String tr = "SELECT Cnum FROM CONSULTATION WHERE Cnum = '"+CNum+"' FOR UPDATE";
+	String tr = "SELECT Cnum FROM CONSULTATION WHERE Cnum = '"+CNum+"' FOR UPDATE NOWAIT";
 	trstmt = conn.prepareStatement(tr);
 	trstmt.executeQuery();
 	
@@ -73,8 +73,15 @@
 	rs.close();
 	pstmt.close();
 	if (Integer.parseInt(countMember) > Integer.parseInt(maxCount)) {
-		System.out.println("eerrrrorr");
-		%><jsp:forward page="main_student.jsp"/><%
+		System.out.println("hello");
+		conn.commit();
+		%>
+		<script>
+			alert('This reservation is full reserved.');
+			document.location.href="main_student.jsp";
+		</script>
+		<%
+		return;
 	}
 %>
 

@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
-
+<title>My page</title>
 <%
 	request.setCharacterEncoding("UTF-8");
 	//seeMyProfile

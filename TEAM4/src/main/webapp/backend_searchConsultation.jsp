@@ -9,8 +9,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	String Consult_Type = request.getParameter("Consult_Type");
-    String CProfName = request.getParameter("CProfName"); //±³¼ö ÀÌ¸§
-    //String id = request.getParameter("id"); //ÇĞ»ı ¾ÆÀÌµğ
+    String CProfName = request.getParameter("CProfName"); //êµìˆ˜ ì´ë¦„
+    //String id = request.getParameter("id"); //í•™ìƒ ì•„ì´ë””
     String id = (String)session.getAttribute("id");
     String uco = (String)session.getAttribute("uco");
 
@@ -41,13 +41,13 @@
 <body>
 	<form name="form" action="consultAvailableCheck.jsp" method="post">
 <% 
-	//Consult_type¿¡ µû¸¥ Äõ¸®
+	//Consult_typeì— ë”°ë¥¸ ì¿¼ë¦¬
 	if (Consult_Type.equals("COURSE")) {
 		sql = "select C.consult_type, C.CProfName, C.CDate, C.CTime, C.Consult_Space, C.C_Max_Reserv_Num, C.CNum, C.CPId "
 				+ "from consultation C "
 				+ "where cprofname = '" + CProfName + "' "
 				+ "and csid = '" + id + "' "
-				+ "and C_max_reserv_Num >= (select count(*) from consultation "
+				+ "and (C_max_reserv_Num + 1) >= (select count(*) from consultation "
 				+				"where cnum = C.cnum "
 				+				"group by cnum) "
 				+ "and cpid in (select co2.cid from course_registration co2 "
@@ -55,27 +55,30 @@
 				+ "											from course_registration co3 "
 				+ "											where cid = '" + id + "') "
 				+ "				and co2.role = 'p')"
-				+ "and C.CSId = '0000000000'";
+				+ "and C.CSId = '0000000000' "
+				+ "and C.consult_type = 'COURSE'";
 	}
-	else if (Consult_Type.equals("FOLLOW")) {//ÇĞ»ıÀÌ Áöµµ±³¼ö¸¦ ¸Â°Ô ½ÅÃ»ÇÏ¸é º¸ÀÓ
+	else if (Consult_Type.equals("FOLLOW")) {//í•™ìƒì´ ì§€ë„êµìˆ˜ë¥¼ ë§ê²Œ ì‹ ì²­í•˜ë©´ ë³´ì„
 		sql = "select C.consult_type, C.CProfName, C.CDate, C.CTime, C.Consult_Space, C.C_Max_Reserv_Num, C.CNum, C.CPId "
 			+ "from consultation C, follow_student "
 			+ "where tpid = cpid and tsid = csid "
 			+ "and cprofname = '" + CProfName + "' "
 			+ "and csid = '" + id + "' "
-			+ "and C_max_reserv_Num >= (select count(*) from consultation "
+			+ "and (C_max_reserv_Num + 1) >= (select count(*) from consultation "
 			+				"where cnum = C.cnum "
 			+				"group by cnum)"
-			+ "and C.CSId = '0000000000'";
+			+ "and C.CSId = '0000000000' "
+			+ "and C.consult_type = 'FOLLOW'";
 	}
 	else {
 		sql = "select C.consult_type, C.CProfName, C.CDate, C.CTime, C.Consult_Space, C.C_Max_Reserv_Num, C.CNum, C.CPId  "
 				+ "from consultation C "
 				+ "where cprofname = '" + CProfName + "' "
-				+ "and C_max_reserv_Num >= (select count(*) from consultation "
+				+ "and (C_max_reserv_Num + 1) >= (select count(*) from consultation "
 				+				"where cnum = C.cnum "
 				+				"group by cnum)"
-				+ "and C.CSId = '0000000000'";
+				+ "and C.CSId = '0000000000' "
+				+ "and C.consult_type = 'GENERAL'";
 	}
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
@@ -133,7 +136,7 @@
 	out.println("</table>");
 	
 	//select consultation number
-	out.println("<br><label for=\"select_num\">»ó´ã ¼±ÅÃ</label>");
+	out.println("<br><label for=\"select_num\">ìƒë‹´ ì„ íƒ</label>");
 	out.println("<select name = \"select_num\" id=\"select_num\">");
 	for(i=1; i<total_cnt+1; i++){
 		out.println("<option value = \"" + i +"\">"+ i +"</option>");
@@ -145,7 +148,7 @@
 	out.println("<input type=\"submit\" value=\"apply\"></div>");
 
 	//session enroll
-	//¹è¿­ ÀüÃ¼¸¦ attribute·Î µî·ÏÇÔ.
+	//ë°°ì—´ ì „ì²´ë¥¼ attributeë¡œ ë“±ë¡í•¨.
 	session.setAttribute("c", c);
 	session.setAttribute("p", p);
 	session.setAttribute("d", d);

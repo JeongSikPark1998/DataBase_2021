@@ -5,8 +5,7 @@ This is an introduction page of **Consultation Service** 'CONSULTATION'
 
 ------------
 #### Kyungpook National University
-#### [COMP322]Introduction to Databases
-#### Fall' 2021
+#### [COMP322]Introduction to Databases Fall' 2021
 #### Team 4 - Consultation Service : Project
 
 ------------
@@ -24,7 +23,7 @@ consultation booking service in university
 
 ------------
 ## 3. CODE LINK
-[access to jsp files *click on*](https://github.com/JeongSikPark1998/DataBase_2021/tree/main/TEAM4/src/main/webapp)
+[access to jsp files](https://github.com/JeongSikPark1998/DataBase_2021/tree/main/TEAM4/src/main/webapp)
 
 ------------
 ## 4. DEVELOPMENT ENVIRONMENT
@@ -34,13 +33,13 @@ consultation booking service in university
 - Oracle
 3. Language
 - SQL
-- jsp
+- java
 - html
 - javascript
 
 ------------
 ## 5. HOW TO INSTALL & RUN
-`build a database` (db)
+`build a database`
 ```bash
 ddl.sql
 insert.sql
@@ -52,7 +51,7 @@ login.jsp
 
 ------------
 ## 6. DEMO
-![CONSULTATION_사용예시]
+Youtube Link: https://www.youtube.com/watch?v=e4Wo-IMcFY4
 
 ------------
 ## 7. STUDENT
